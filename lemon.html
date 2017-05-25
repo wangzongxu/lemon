@@ -20,6 +20,12 @@
     .log-container td{
       border-bottom: 1px solid #CCC
     }
+    .w-80{
+      width: 80%!important
+    }
+    .w-20-p{
+      width: calc(20% - 12px)!important
+    }
     .log-container .p-0{
       padding: 0!important
     }
@@ -240,10 +246,10 @@
   </ul>
 
   <ul class="log-pannal-bottom">
-    <li id="log-clear" data-type="log-console">
+    <li id="log-clear" class="w-20-p" data-type="log-console">
       <a href="javascript:;">Clear</a>
     </li>
-    <li class="p-0" data-type="log-console">
+    <li class="p-0 w-80" data-type="log-console">
       <input id="log-try-input" class="try-input" type="text" placeholder="  try it out" value="">
     </li>
     <li id="log-style-enter" data-type="log-style">
@@ -379,6 +385,7 @@
           className = 'c-blue'
       }
       var el = document.createElement('p');
+      alert(data.log)
       if(data.log instanceof Error){ // 捕获错误
         el.innerHTML = data.log.name + ' : ' + data.log.message;
       }else{ // 是否对象
@@ -414,7 +421,7 @@
 
         var style = getComputedStyle(e.target);
         that.eleStyle = style;
-        var str = '<tr><td>*TagName*</tb><td>' + e.target.tagName.toLowerCase() + '</td></tr>';
+        var str = '<tr><td>tagName</tb><td>' + e.target.tagName.toLowerCase() + '</td></tr>';
         ['width','height','paddingTop','paddingBottom','paddingLeft','paddingRight','marginTop','marginBottom','marginLeft','marginRight','display','opacity','zIndex','position','top','bottom','left','right','float','font-size','font-weight','border','lineHeight','overflow']
         .forEach(function(prop){
           str += '<tr><td>'+ prop +'</tb><td>' + style[prop] + '</td></tr>';
@@ -500,7 +507,7 @@
           var script = document.createElement('script');
           script.async = false;
           script.type = "text/javascript";
-          script.innerHTML = 'try{'+ code.replace(/\s?log\s?\(/g, ' console.log(') +'}catch(e){console.log(e)}';
+          script.innerHTML = 'try{'+ code.replace(/(^|[^.])log\(/g, ' console.log(') +'}catch(e){console.log(e)}';
           document.body.appendChild(script);
           setTimeout(function(){
             document.body.removeChild(script);
