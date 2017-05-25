@@ -309,16 +309,16 @@
 
     },
     bindEvent: function() {
-      this.replaceNativeLog();
-      this.selectListener();
-      this.clearListener();
-      this.getCookiesListener();
-      this.getLocalListener();
-      this.getSessionListener();
-      this.getStyleListener();
-      this.togglePannal();
-      this.detailClose();
-      this.tryItOut();
+      this.replaceNativeLog(); // 替换原生log
+      this.selectListener(); // 切换log面板
+      this.clearListener(); // console面板清空
+      this.getCookiesListener(); // 获取cookie
+      this.getLocalListener(); // 获取localStorage
+      this.getSessionListener(); // 获取sessionStorage
+      this.getStyleListener(); // 获取样式
+      this.togglePannal(); // 隐藏或显示控制台
+      this.detailClose(); // 关闭详情面板
+      this.tryItOut(); // 输出js功能
     },
     // 关闭详情面板
     detailClose: function() {
@@ -379,7 +379,13 @@
           className = 'c-blue'
       }
       var el = document.createElement('p');
-      el.innerHTML = data.log ? data.log : JSON.stringify(data.log);
+      if(data.log instanceof Error){ // 捕获错误
+        el.innerHTML = data.log.name + ' : ' + data.log.message;
+      }else{ // 是否对象
+        el.innerHTML = typeof data.log == 'object'
+                       ? '<pre><code>'+ JSON.stringify(data.log, false, 2) +'</code></pre>'
+                       : '<pre><code>'+ data.log +'</code></pre>';
+      }
       el.className = className;
       $('#log-console-pan').appendChild(el);
       $('#log-console-pan').scrollTop = $('#log-console-pan').scrollHeight;
@@ -391,7 +397,6 @@
       ['log', 'error', 'warn', 'info', 'dir'].forEach(function(type){
         window._console[type] = window.console[type];
         window.console[type] = function(log) {
-          that.log.push({type:type, log:log});
           that.renderLog({type:type, log:log});
           return window._console[type](log);
         }
@@ -491,25 +496,15 @@
           if(code.trim() === '')return;
           logIndex = 0;
           that.inputLog.push(code);
-          // try{
-          //   var log = eval(code);
-          //   if(typeof log === 'object'){
-          //     if(testType(log,'Element')){
-          //       code = JSON.stringify(log);
-          //
-          //     }
-          //     console.log(code);
-          //     e.target.value = '';
-          //     return;
-          //   }
-          // }catch(err){}
-          try{
-            console.log(
-              eval(code)
-            );
-          }catch(err){
-            console.log(err)
-          }
+
+          var script = document.createElement('script');
+          script.async = false;
+          script.type = "text/javascript";
+          script.innerHTML = 'try{'+ code.replace(/\s?log\s?\(/g, ' console.log(') +'}catch(e){console.log(e)}';
+          document.body.appendChild(script);
+          setTimeout(function(){
+            document.body.removeChild(script);
+          })
           e.target.value = '';
           return;
         }
