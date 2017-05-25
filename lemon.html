@@ -6,13 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>lemon</title>
   <style type="text/css">
-    html,body{
+    /*html,body{
       width: 100%;
       height: 100%;
       background: antiquewhite;
       margin: 0;
       padding: 0
-    }
+    }*/
 
     .log-container .fff-b{
       background: #fff!important
@@ -419,10 +419,10 @@
       on($('#log-style-enter'), 'click', function(){
         if(document.__lemonGetStyle__)return;
         document.__lemonGetStyle__ = true;
-        on(document.body, 'click', event)
+        on(document.documentElement || document.body, 'click', event)
       })
       on($('#log-style-leave'), 'click', function(){
-        off(document.body, 'click', event)
+        off(document.documentElement || document.body, 'click', event)
       })
       on($('#log-style-detail'), 'click', function(){
         var str = '<table class="w-all">\
@@ -434,9 +434,9 @@
                     </thead>\
                     <tbody>';
         for (var prop in that.eleStyle) {
-          if (that.eleStyle.hasOwnProperty(prop) && isNaN(prop*1)) {
+         if (that.eleStyle.hasOwnProperty(prop) && isNaN(prop*1) && prop !=='cssText') {
             str += '<tr><td>'+ prop +'</tb><td>' + that.eleStyle[prop] + '</td></tr>';
-          }
+         }
         }
         str += '</tbody></table>';
         $('#log-container .log-detail').innerHTML = str;
