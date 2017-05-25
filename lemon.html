@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>lemon</title>
+  <style type="text/css">
+    html,body{
+      width: 100%;
+      height: 100%;
+      background: antiquewhite;
+      margin: 0;
+      padding: 0
+    }
+
+    .log-container .fff-b{
+      background: #fff!important
+    }
+    .log-container td{
+      border-bottom: 1px solid #CCC
+    }
+    .log-container .p-0{
+      padding: 0!important
+    }
+    .log-container .w-all{
+      width: 100%
+    }
+    .log-container .clearfix:after{
+      display: block;
+      content: "";
+      clear: both;
+      width: 0;
+      height: 0;
+    }
+    .log-container .pos-r{
+      position: relative;
+    }
+    .log-container .pos-a{
+      position: absolute;
+    }
+    .log-container .c-red{
+      color: red!important
+    }
+    .log-container .c-orange{
+      color: orange!important
+    }
+    .log-container .c-blue{
+      color: blue!important
+    }
+    .log-container.hide,
+    .log-container .hide{
+      display: none;
+    }
+    .log-container *{
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+    }
+    .log-container .log-pannal{
+      z-index: 9999998;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 40%;
+      background: #fff;
+      width: 100%;
+    }
+    .log-container ul,
+    .log-container li{
+      list-style: none
+    }
+    .log-container .text-hide{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .log-container a,.log-container a:hover,.log-container a:target,.log-container a:visited,.log-container a:link{
+      text-decoration: none;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      tap-highlight-color: rgba(0,0,0,0);
+　　   -webkit-tap-highlight-color: transparent;
+      tap-highlight-color: transparent;
+      color:#333;
+    }
+    .log-container .log-pannal .log-pannal-btn,
+    .log-container .log-pannal .log-pannal-bottom{
+      overflow: auto;
+      width: 100%;
+      height: calc(18.5% - 2px);
+      background: #F3F3F3;
+      border-top:1px solid #CCC;
+      border-bottom:1px solid #CCC;
+    }
+    .log-container .log-pannal .log-pannal-btn>li,
+    .log-container .log-pannal .log-pannal-bottom>li{
+      float: left;
+      height: 100%;
+      line-height: 40px;
+      text-align: center;
+      padding: 0 5px;
+      border-right: 1px solid #CCC;
+      background: #F3F3F3;
+    }
+    .log-container .log-pannal .log-pannal-log{
+      overflow: hidden;
+      width: 100%;
+      height: 63%
+    }
+    .log-container .log-pannal .log-detail{
+      overflow: auto;
+      word-wrap: break-word;
+      width: 100%;
+      height: 100%;
+      background: #fff
+    }
+    .log-container .log-detail-close{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      line-height: 20px;
+      height: 20px;
+      font-size: 20px;
+      cursor:pointer
+    }
+    .log-container .log-pannal .log-pannal-log>li{
+      width: 100%;
+      height: 100%;
+      word-wrap: break-word;
+      overflow: auto;
+    }
+    .log-container .log-pannal .log-pannal-log>li#log-console-pan>p{
+      border-bottom: 1px solid #CCC;
+      line-height: 22px;
+      word-wrap: break-word;
+    }
+    .log-container .log-pannal-bottom>li .try-input{
+      width: calc(100vw - 45px);
+      height: 100%;
+      border:none;
+    }
+    .log-container .log-pannal-bottom>li>a:active{
+      color: #fff!important;
+    }
+    .log-container .log-switch{
+      -webkit-user-select:none;
+      user-select:none;
+      position: fixed;
+      display: block;
+      z-index: 9999999;
+      border-radius:10% 50% 10% 50%;
+      right: 5%;
+      bottom: 5%;
+      min-width: 40px;
+      width: 45px;
+      height: 45px;
+      line-height: 45px;
+      font-weight: bold;
+      background: url(http://i3.letvimg.com/lc07_lecloud/201705/24/14/15/lemon.png);
+      box-shadow: #333 5px 5px 33px -5px;
+      text-align: center;
+    }
+    .log-container .log-switch:active{
+      background: rgb(176, 233, 108)!important;
+      box-shadow: rgb(145, 215, 63) 5px 5px 33px -5px;
+    }
+  </style>
+</head>
+<body>
+<div id="log-container" class="log-container">
+<a class="log-switch" href="javascript:;">lemon</a>
+<div class="log-pannal pos-r"><span class="log-detail-close hide">×</span>
+
+  <div class="log-detail hide"></div>
+
+  <ul class="log-pannal-btn clearfix">
+    <li id="log-console" class="fff-b"><a href="javascript:;">Console</a></li>
+    <li id="log-style"><a href="javascript:;">Style</a></li>
+    <li id="log-cookie"><a href="javascript:;">Cookie</a></li>
+    <li id="log-local"><a href="javascript:;">Local</a></li>
+    <li id="log-session"><a href="javascript:;">Session</a></li>
+    <li id="log-xhr"><a href="javascript:;">Xhr</a></li>
+  </ul>
+
+  <ul class="log-pannal-log">
+    <li id="log-console-pan"></li>
+    <li id="log-style-pan">
+      <table class="w-all">
+        <col width="40%">
+        <col width="60%">
+        <thead>
+          <th>prop</th>
+          <th>value</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </li>
+    <li id="log-cookie-pan" class="hide">
+      <table class="w-all">
+        <col width="40%">
+        <col width="60%">
+        <thead>
+          <th>key</th>
+          <th>value</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </li>
+    <li id="log-local-pan" class="hide">
+      <table class="w-all">
+        <col width="40%">
+        <col width="60%">
+        <thead>
+          <th>key</th>
+          <th>value</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </li>
+    <li id="log-session-pan" class="hide">
+      <table class="w-all">
+        <col width="40%">
+        <col width="60%">
+        <thead>
+          <th>key</th>
+          <th>value</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </li>
+    <li id="log-xhr-pan" class="hide">xhr</li>
+  </ul>
+
+  <ul class="log-pannal-bottom">
+    <li id="log-clear" data-type="log-console">
+      <a href="javascript:;">Clear</a>
+    </li>
+    <li class="p-0" data-type="log-console">
+      <input id="log-try-input" class="try-input" type="text" placeholder="  try it out" value="">
+    </li>
+    <li id="log-style-enter" data-type="log-style">
+      <a href="javascript:;">Enter</a>
+    </li>
+    <li id="log-style-leave" data-type="log-style">
+      <a href="javascript:;">Leave</a>
+    </li>
+    <li id="log-style-detail" data-type="log-style">
+      <a href="javascript:;">detail</a>
+    </li>
+  </ul>
+
+</div>
+</div>
+</body>
+<script type="text/javascript">
+  /** try it out 和 chrome 控制台的不同：
+    * 这里声明的变量不会挂在到window上，所以如果在上一句输出的var a = 1，再下一句是无法获得的
+    * 因为控制台执行eval函数，作用域是window所以挂在到全局，我们写在其他作用域里边的eval('var a=1')，则不会有这种效果
+    * 这是try it out局限性所在
+    **/
+  var testType = function(target,type){
+    return Object.prototype.toString.call(target).match(type) !== null
+  }
+  var $ = function(selector){
+    var eles = document.querySelectorAll(selector);
+    var len = eles.length;
+    if(len>0){
+      return eles.length > 1 ? eles : eles[0];
+    }
+    return null
+  }
+  var on = function(eles, type, fn){
+    if(eles.length){
+      for (var i = 0; i < eles.length; i++) {
+        eles[i].addEventListener(type, fn, false);
+      }
+      return;
+    }
+    eles.addEventListener(type, fn, false);
+  }
+  var off = function(eles, type, fn){
+    if(eles.length){
+      for (var i = 0; i < eles.length; i++) {
+        eles[i].removeEventListener(type, fn, false);
+      }
+      return;
+    }
+    eles.removeEventListener(type, fn, false);
+  }
+  function Lemon() {
+    this.curPan = 'log-console';
+    this.eleStyle = {}; // console
+    this.inputLog = []; // 前几次的try it out 输入
+    this.init();
+  }
+  Lemon.prototype = {
+    init: function() {
+      this.bindEvent()
+    },
+    choosePannal: function(type) {
+
+    },
+    bindEvent: function() {
+      this.replaceNativeLog();
+      this.selectListener();
+      this.clearListener();
+      this.getCookiesListener();
+      this.getLocalListener();
+      this.getSessionListener();
+      this.getStyleListener();
+      this.togglePannal();
+      this.detailClose();
+      this.tryItOut();
+    },
+    // 关闭详情面板
+    detailClose: function() {
+      on($('#log-container .log-detail-close'), 'click', function(){
+        this.classList.add('hide');
+        $('#log-container .log-detail').classList.add('hide');
+        $('#log-container .log-detail').innerHTML = '';
+      })
+    },
+    // 隐藏显示控制台
+    togglePannal: function() {
+      on($('.log-container .log-switch'),'click',function(e){
+        $('.log-container .log-pannal').classList.toggle('hide')
+      })
+    },
+    // 切换面板
+    selectListener: function(){
+      var that = this;
+      var pannals = $('.log-pannal-log>li');
+      var select = $('.log-pannal-btn>li');
+      on(select, 'click', function(){
+        for (var i = 0; i < pannals.length; i++) {
+          pannals[i].classList.add('hide');
+          select[i].classList.remove('fff-b');
+        }
+        that.curPan = this.id;
+        $('#' + that.curPan + '-pan').classList.remove('hide');
+        this.classList.add('fff-b');
+
+        var bottomBtn = $('.log-pannal-bottom>li');
+        for (var k = 0; k < bottomBtn.length; k++) {
+          if(bottomBtn[k].dataset.type == that.curPan){
+            bottomBtn[k].classList.remove('hide')
+          }else{
+            bottomBtn[k].classList.add('hide')
+          }
+        }
+      })
+    },
+    // 清空console面板
+    clearListener: function(){
+      var that = this;
+      on($('#log-clear'), 'click', function(){
+        $('#log-console-pan').innerHTML = '';
+      })
+    },
+    // 渲染log面板
+    renderLog: function(data) {
+      var className = 'c-black';
+      switch (data.type) {
+        case 'warn':
+          className = 'c-orange'
+          break;
+        case 'error':
+          className = 'c-red'
+          break;
+        case 'info':
+          className = 'c-blue'
+      }
+      var el = document.createElement('p');
+      el.innerHTML = data.log ? data.log : JSON.stringify(data.log);
+      el.className = className;
+      $('#log-console-pan').appendChild(el);
+      $('#log-console-pan').scrollTop = $('#log-console-pan').scrollHeight;
+    },
+    // 替换log
+    replaceNativeLog:function() {
+      var that = this;
+      window._console = {};
+      ['log', 'error', 'warn', 'info', 'dir'].forEach(function(type){
+        window._console[type] = window.console[type];
+        window.console[type] = function(log) {
+          that.log.push({type:type, log:log});
+          that.renderLog({type:type, log:log});
+          return window._console[type](log);
+        }
+      })
+    },
+    // 获取样式
+    getStyleListener:function() {
+      var that = this;
+      function event(e){
+        var t = e.target;
+        var flag = false;
+        do{// 不可点选控制台
+          if(t.id === 'log-container')return;
+        }while(t = t.parentNode)
+
+        var style = getComputedStyle(e.target);
+        that.eleStyle = style;
+        var str = '<tr><td>*TagName*</tb><td>' + e.target.tagName.toLowerCase() + '</td></tr>';
+        ['width','height','paddingTop','paddingBottom','paddingLeft','paddingRight','marginTop','marginBottom','marginLeft','marginRight','display','opacity','zIndex','position','top','bottom','left','right','float','font-size','font-weight','border','lineHeight','overflow']
+        .forEach(function(prop){
+          str += '<tr><td>'+ prop +'</tb><td>' + style[prop] + '</td></tr>';
+        })
+        $('#log-style-pan tbody').innerHTML = str
+      }
+      on($('#log-style-enter'), 'click', function(){
+        if(document.__lemonGetStyle__)return;
+        document.__lemonGetStyle__ = true;
+        on(document.body, 'click', event)
+      })
+      on($('#log-style-leave'), 'click', function(){
+        off(document.body, 'click', event)
+      })
+      on($('#log-style-detail'), 'click', function(){
+        var str = '<table class="w-all">\
+                    <col width="40%">\
+                    <col width="60%">\
+                    <thead>\
+                      <th>prop</th>\
+                      <th>value</th>\
+                    </thead>\
+                    <tbody>';
+        for (var prop in that.eleStyle) {
+          if (that.eleStyle.hasOwnProperty(prop) && isNaN(prop*1)) {
+            str += '<tr><td>'+ prop +'</tb><td>' + that.eleStyle[prop] + '</td></tr>';
+          }
+        }
+        str += '</tbody></table>';
+        $('#log-container .log-detail').innerHTML = str;
+        $('#log-container .log-detail').classList.remove('hide');
+        $('#log-container .log-detail-close').classList.remove('hide');
+      })
+    },
+    // 获取cookie
+    getCookiesListener: function() {
+      on($('#log-cookie'), 'click', function(){
+        if(document.cookie === '')return;
+        var arr = document.cookie.split('; ');
+        var str = '';
+        arr.forEach(function(item){
+          var kv = item.split('=');
+          str += '<tr><td>'+ kv[0] +'</tb><td>' + kv[1] + '</td></tr>';
+        })
+        $('#log-cookie-pan tbody').innerHTML = str
+      })
+    },
+    // 获取session
+    getSessionListener: function() {
+      on($('#log-session'), 'click', function(){
+        if(sessionStorage.length == 0)return;
+        var str = '';
+        for (var i = 0; i < sessionStorage.length; i++) {
+          var k = sessionStorage.key(i)
+          str += '<tr><td>'+ k +'</tb><td>' + sessionStorage.getItem(k) + '</td></tr>';
+        }
+        $('#log-session-pan tbody').innerHTML = str
+      })
+    },
+    // 获取localstorage
+    getLocalListener: function() {
+      on($('#log-local'), 'click', function(){
+        if(localStorage.length == 0)return;
+        var str = '';
+        for (var i = 0; i < localStorage.length; i++) {
+          var k = localStorage.key(i)
+          str += '<tr><td>'+ k +'</tb><td>' + localStorage.getItem(k) + '</td></tr>';
+        }
+        $('#log-local-pan tbody').innerHTML = str
+      })
+    },
+    // try it out
+    tryItOut:function(){
+      var that = this;
+      var logIndex = 0;
+      on($('#log-try-input'), 'keyup', function(e){
+        var code = e.target.value;
+        if(e.keyCode == 13){
+          if(code.trim() === '')return;
+          logIndex = 0;
+          that.inputLog.push(code);
+          // try{
+          //   var log = eval(code);
+          //   if(typeof log === 'object'){
+          //     if(testType(log,'Element')){
+          //       code = JSON.stringify(log);
+          //
+          //     }
+          //     console.log(code);
+          //     e.target.value = '';
+          //     return;
+          //   }
+          // }catch(err){}
+          try{
+            console.log(
+              eval(code)
+            );
+          }catch(err){
+            console.log(err)
+          }
+          e.target.value = '';
+          return;
+        }
+        if(e.keyCode == 38){ // up
+          if(logIndex >= that.inputLog.length)return;
+          logIndex ++;
+        }else if(e.keyCode == 40){ // down
+          logIndex --;
+        }else{
+          return
+        }
+        var val = that.inputLog[that.inputLog.length - logIndex]
+        if(val !== undefined){
+          e.target.value = val;
+        }else{
+          logIndex = 0;
+          e.target.value = '';
+        }
+      })
+    }
+  }
+  new Lemon();
+</script>
+</html>
