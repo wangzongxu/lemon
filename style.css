@@ -96,6 +96,19 @@
   border-right: 1px solid #CCC;
   background: #F3F3F3;
 }
+.log-container .log-pannal-btn-par{
+  width: 100%;
+  overflow: auto;
+}
+.log-container .log-pannal-btn-par::scrollbar {
+    display: none;
+}
+.log-container .log-pannal-btn-par::-webkit-scrollbar {
+    display: none;
+}
+.log-container .log-pannal .log-pannal-btn{
+  width: 150%;
+}
 .log-container .log-pannal .log-pannal-log{
   overflow: hidden;
   width: 100%;
