@@ -385,7 +385,6 @@
           className = 'c-blue'
       }
       var el = document.createElement('p');
-      alert(data.log)
       if(data.log instanceof Error){ // 捕获错误
         el.innerHTML = data.log.name + ' : ' + data.log.message;
       }else{ // 是否对象
@@ -507,7 +506,7 @@
           var script = document.createElement('script');
           script.async = false;
           script.type = "text/javascript";
-          script.innerHTML = 'try{'+ code.replace(/(^|[^.])log\(/g, ' console.log(') +'}catch(e){console.log(e)}';
+          script.innerHTML = 'try{'+ code.replace(/(^|[^.])log\(/g, ' console.log(') +' }catch(e){if(e.message !=="Illegal invocation"){alert(e.message)}}'; // 移动浏览器使用try会报非法调用,暂无解决方法
           document.body.appendChild(script);
           setTimeout(function(){
             document.body.removeChild(script);
