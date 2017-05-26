@@ -508,6 +508,7 @@
           script.type = "text/javascript";
           script.innerHTML = 'try{'+ code.replace(/(^|[^.])log\(/g, ' console.log(') +' }catch(e){if(e.message !=="Illegal invocation"){alert(e.message)}}'; // 移动浏览器使用try会报非法调用,暂无解决方法
           document.body.appendChild(script);
+          
           setTimeout(function(){
             document.body.removeChild(script);
           })
