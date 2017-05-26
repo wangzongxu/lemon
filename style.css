@@ -1,0 +1,161 @@
+@charset "UTF-8";
+.log-container .fff-b{
+  background: #fff!important
+}
+.log-container td{
+  border-bottom: 1px solid #CCC
+}
+.w-80{
+  width: 80%!important
+}
+.w-20-p{
+  width: calc(20% - 12px)!important
+}
+.log-container .p-0{
+  padding: 0!important
+}
+.log-container .w-all{
+  width: 100%
+}
+.log-container .clearfix:after{
+  display: block;
+  content: "";
+  clear: both;
+  width: 0;
+  height: 0;
+}
+.log-container .pos-r{
+  position: relative;
+}
+.log-container .pos-a{
+  position: absolute;
+}
+.log-container .c-red{
+  color: red!important
+}
+.log-container .c-orange{
+  color: orange!important
+}
+.log-container .c-green{
+  color: green!important
+}
+.log-container .c-blue{
+  color: blue!important
+}
+.log-container.hide,
+.log-container .hide{
+  display: none;
+}
+.log-container *{
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+}
+.log-container .log-pannal{
+  z-index: 9999998;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 40%;
+  background: #fff;
+  width: 100%;
+}
+.log-container ul,
+.log-container li{
+  list-style: none
+}
+.log-container .text-hide{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.log-container a,.log-container a:hover,.log-container a:target,.log-container a:visited,.log-container a:link{
+  text-decoration: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  tap-highlight-color: rgba(0,0,0,0);
+　　   -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+  color:#333;
+}
+.log-container .log-pannal .log-pannal-btn,
+.log-container .log-pannal .log-pannal-bottom{
+  overflow: auto;
+  width: 100%;
+  height: calc(18.5% - 2px);
+  background: #F3F3F3;
+  border-top:1px solid #CCC;
+  border-bottom:1px solid #CCC;
+}
+.log-container .log-pannal .log-pannal-btn>li,
+.log-container .log-pannal .log-pannal-bottom>li{
+  float: left;
+  height: 100%;
+  line-height: 40px;
+  text-align: center;
+  padding: 0 5px;
+  border-right: 1px solid #CCC;
+  background: #F3F3F3;
+}
+.log-container .log-pannal .log-pannal-log{
+  overflow: hidden;
+  width: 100%;
+  height: 63%
+}
+.log-container .log-pannal .log-detail{
+  overflow: auto;
+  word-wrap: break-word;
+  width: 100%;
+  height: 100%;
+  background: #fff
+}
+.log-container .log-detail-close{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  line-height: 20px;
+  height: 20px;
+  font-size: 20px;
+  cursor:pointer
+}
+.log-container .log-pannal .log-pannal-log>li{
+  width: 100%;
+  height: 100%;
+  word-wrap: break-word;
+  overflow: auto;
+}
+.log-container .log-pannal .log-pannal-log>li#log-console-pan>p{
+  border-bottom: 1px solid #CCC;
+  line-height: 22px;
+  word-wrap: break-word;
+  overflow: auto;
+}
+.log-container .log-pannal-bottom>li .try-input{
+  width: calc(100vw - 45px);
+  height: 100%;
+  border:none;
+}
+.log-container .log-pannal-bottom>li>a:active{
+  color: #fff!important;
+}
+.log-container .log-switch{
+  -webkit-user-select:none;
+  user-select:none;
+  position: fixed;
+  display: block;
+  z-index: 9999999;
+  border-radius:10% 50% 10% 50%;
+  right: 5%;
+  bottom: 5%;
+  min-width: 40px;
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  font-weight: bold;
+  background: url(http://i3.letvimg.com/lc07_lecloud/201705/24/14/15/lemon.png);
+  box-shadow: #333 5px 5px 33px -5px;
+  text-align: center;
+}
+.log-container .log-switch:active{
+  background: rgb(176, 233, 108)!important;
+  box-shadow: rgb(145, 215, 63) 5px 5px 33px -5px;
+}
