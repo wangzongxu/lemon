@@ -296,7 +296,7 @@
                           console.error(this.__lemon_data__.method.toUpperCase() + '     ' + this.__lemon_data__.requestUrl + '     ' + this.status)
                       }
                       // 取几个常用的
-                      ['responseURL', 'responseType', 'timeout', 'responseXML', 'withCredentials']
+                      ['responseURL', 'responseType', 'timeout', 'withCredentials']
                       .forEach(function(prop) {
                           xhr.__lemon_data__[prop] = xhr[prop] || '';
                       })
