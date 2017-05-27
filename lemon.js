@@ -27,12 +27,29 @@ var off = function(eles, type, fn) {
     }
     eles.removeEventListener(type, fn, false);
 }
-
+var getStaticSource = function(url,suc,err) {
+  var xhr = new window._XMLHttpRequest;
+  xhr.open('get',url,true);
+  xhr.onreadystatechange = function(){
+    if(this.readyState == this.DONE){
+      if(/(^2\d{2})$|304/.test(this.status)){
+        suc && suc(this.responseText)
+      }else{
+        err && err(this);
+      }
+    }
+  }
+  xhr.send();
+}
+var random = function(){
+  return (Math.random() + '').substr(2)
+}
 function Lemon() {
     this.curPan = 'log-console'; // 当前面板
     this.eleStyle = {}; // console
     this.inputLog = []; // 前几次的try it out 输入
     this.xhrDetail = {}; // xhr详情存储
+    this.staticSource = {} // 存储静态资源
     this.init();
 }
 Lemon.prototype = {
@@ -49,8 +66,7 @@ Lemon.prototype = {
         this.getLocalListener(); // 获取localStorage
         this.getSessionListener(); // 获取sessionStorage
         this.getStyleListener(); // 获取样式
-        this.getCssListener(); // 获取静态资源[css]
-        this.getJsListener(); // 获取静态资源[js]
+        this.getStaticListener(); // 获取静态资源
         this.togglePannal(); // 隐藏或显示控制台
         this.detailClose(); // 关闭详情面板
         this.tryItOut(); // 输出js功能
@@ -150,13 +166,12 @@ Lemon.prototype = {
     // 处理xhr
     replaceHttpRequest: function() {
         var that = this;
-        on($('#log-xhr-pan'), 'click', function(e) {
+        $('#log-xhr-pan').innerHTML = this.tableBegin('URL','Status', 60, 40) + this.tableEnd();
+        on($('#log-xhr-pan tbody'), 'click', function(e) {
             var t = e.target;
             if (t.tagName == 'TD') {
                 t = e.target.parentNode
-            } else if (!/^xhr/.test(t.id)) {
-                return
-            };
+            }
             var data = that.xhrDetail[t.id]
             var str = that.tableBegin('prop', 'value', 40, 60);
             for (var prop in data) {
@@ -202,7 +217,7 @@ Lemon.prototype = {
                         var prop = str.split(':');
                         prop[0].trim() ? xhr.__lemon_data__[prop[0]] = prop[1] : null;
                     })
-                    var id = 'xhr' + Date.now();
+                    var id = 'xhr' + random();
                     that.xhrDetail[id] = this.__lemon_data__;
                     var str = '<tr id="' + id + '"><td>' + this.__lemon_data__.requestUrl + '</tb><td class="' + color + '">' + this.status + ' ' + this.statusText + '</td></tr>';
                     $('#log-xhr-pan tbody').innerHTML += str;
@@ -260,7 +275,7 @@ Lemon.prototype = {
     // 获取样式
     getStyleListener: function() {
         var that = this;
-        // TODO 拼接表格减少dom
+        $('#log-style-pan').innerHTML = that.tableBegin('prop','value', 40, 60) + that.tableEnd();
         function event(e) {
             var t = e.target;
             var flag = false;
@@ -300,6 +315,7 @@ Lemon.prototype = {
     },
     // 获取cookie
     getCookiesListener: function() {
+      $('#log-cookie-pan').innerHTML = this.tableBegin('key','value', 40, 60) + this.tableEnd();
         on($('#log-cookie'), 'click', function() {
             if (document.cookie === '') return;
             var arr = document.cookie.split('; ');
@@ -313,6 +329,7 @@ Lemon.prototype = {
     },
     // 获取session
     getSessionListener: function() {
+        $('#log-session-pan').innerHTML = this.tableBegin('key','value', 40, 60) + this.tableEnd();
         on($('#log-session'), 'click', function() {
             if (sessionStorage.length == 0) return;
             var str = '';
@@ -325,6 +342,7 @@ Lemon.prototype = {
     },
     // 获取localstorage
     getLocalListener: function() {
+        $('#log-local-pan').innerHTML = this.tableBegin('key','value', 40, 60) + this.tableEnd();
         on($('#log-local'), 'click', function() {
             if (localStorage.length == 0) return;
             var str = '';
@@ -335,17 +353,94 @@ Lemon.prototype = {
             $('#log-local-pan tbody').innerHTML = str
         })
     },
-    // 获取静态资源[css]
-    getCssListener: function() {
-        on($('#log-css'), 'click', function() {
+    // 获取静态资源
+    getStaticListener: function() {
+      var that = this;
+      $('#log-static-pan').innerHTML = that.tableBegin('file','url or inline', 60, 40) + that.tableEnd();
+      on($('#log-static-pan tbody'), 'click', function(e){
+        var t = e.target;
+        if(t.tagName == 'TD'){
+          t = e.target.parentNode
+        }
+        var data = that.staticSource[t.id];
+        var str = '<pre><code>';
+        if(data.url == 'inline'){
+          str += data.textContent
+        }else{
 
-        })
-    },
-    // 获取静态资源[js]
-    getJsListener: function() {
-        on($('#log-js'), 'click', function() {
+        }
+        str += '</code></pre>'
+        $('#log-container .log-detail').innerHTML = str;
+        $('#log-container .log-detail').classList.remove('hide');
+        $('#log-container .log-detail-close').classList.remove('hide');
+      })
+      on($('#log-static-css'), 'click', function() {
+        that.staticSource = {};
+        var str = '';
+        // handle tag link
+        var links = $('link');
+        links = links.length ? links : [links];
+        for(var i=0;i<links.length;i++){
+          var link = links[i];
+          if(link.rel=='stylesheet' && link.href.trim()!=''){
+            var name = /\/([^\/]+?\.css)/.exec(link.href);
+            var linkObj = {
+              name: name ? name[1] : ' ',
+              url: link.href,
+              id: 'css' + random()
+            };
+            str += '<tr id='+linkObj.id+' ><td>' + linkObj.name + '</tb><td>' + linkObj.url + '</td></tr>';
+            that.staticSource[linkObj.id] = linkObj;
+          }
+        }
+        // handle tag style
+        var styles = $('style');
+        styles = styles.length ? styles : [styles];
+        for(var i=0;i<styles.length;i++){
+          var style = styles[i];
+          if(style.textContent.trim() != ''){ // inline
+            var styleObj = {
+              name: 'style tag',
+              url: 'inline',
+              textContent: style.textContent,
+              id: 'css' + random()
+            };
+            str += '<tr id='+styleObj.id+' ><td>' + styleObj.name + '</tb><td>' + styleObj.url + '</td></tr>';
+            that.staticSource[styleObj.id] = styleObj;
+          }
+        }
+        $('#log-static-pan tbody').innerHTML = str;
+      });
 
-        })
+      on($('#log-static-js'), 'click', function() {
+        that.staticSource = {};
+        var str = '';
+        var scripts = $('script');
+        scripts = scripts.length ? scripts : [scripts];
+        for(var i=0;i<scripts.length;i++){
+          var script = scripts[i];
+          if(script.src.trim()!=''){ // outlink
+            var name = /\/([^\/]+?\.js)/.exec(script.src);
+            var srcJs = {
+              name: name ? name[1] : ' ',
+              url: script.src,
+              id: 'js' + random()
+            };
+            str += '<tr id='+srcJs.id+' ><td>' + srcJs.name + '</tb><td>' + srcJs.url + '</td></tr>';
+            that.staticSource[srcJs.id] = srcJs;
+          } else if (script.textContent.trim() != ''){
+            var inlineJs = {
+              name: 'script tag',
+              url: 'inline',
+              textContent: script.textContent,
+              id: 'js' + random()
+            };
+            str += '<tr id='+inlineJs.id+' ><td>' + inlineJs.name + '</tb><td>' + inlineJs.url + '</td></tr>';
+            that.staticSource[inlineJs.id] = inlineJs;
+          }
+        }
+        $('#log-static-pan tbody').innerHTML = str;
+      })
     },
     // try it out
     tryItOut: function() {

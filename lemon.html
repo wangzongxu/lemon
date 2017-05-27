@@ -6,141 +6,65 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>lemon</title>
   <link rel="stylesheet" href="./style.css" type="text/css">
+  <link rel="stylesheet" href="sdfsd/csdcsstyle.css" type="text/css">
+  <link rel="styleshet" href="./style.css" type="text/css">
 </head>
 <body>
 <div id="log-container" class="log-container">
-<a class="log-switch" href="javascript:;">lemon</a>
-<div class="log-pannal pos-r"><span class="log-detail-close hide">×</span>
+  <a class="log-switch" href="javascript:;">lemon</a>
+  <div class="log-pannal pos-r">
+    
+    <span class="log-detail-close hide">×</span>
 
-  <div class="log-detail hide"></div>
+    <div class="log-detail hide"></div>
 
-  <div class="log-pannal-btn-par">
-    <ul class="log-pannal-btn clearfix">
-      <li id="log-console" class="fff-b"><a href="javascript:;">Console</a></li>
-      <li id="log-style"><a href="javascript:;">Style</a></li>
-      <li id="log-cookie"><a href="javascript:;">Cookie</a></li>
-      <li id="log-local"><a href="javascript:;">Local</a></li>
-      <li id="log-session"><a href="javascript:;">Session</a></li>
-      <li id="log-xhr"><a href="javascript:;">Xhr</a></li>
-      <li id="log-css"><a href="javascript:;">Css</a></li>
-      <li id="log-js"><a href="javascript:;">Js</a></li>
+    <div class="log-pannal-btn-par">
+      <ul class="log-pannal-btn clearfix">
+        <li id="log-console" class="fff-b"><a href="javascript:;">Console</a></li>
+        <li id="log-style"><a href="javascript:;">Style</a></li>
+        <li id="log-cookie"><a href="javascript:;">Cookie</a></li>
+        <li id="log-local"><a href="javascript:;">Local</a></li>
+        <li id="log-session"><a href="javascript:;">Session</a></li>
+        <li id="log-xhr"><a href="javascript:;">Xhr</a></li>
+        <li id="log-static"><a href="javascript:;">Static</a></li>
+      </ul>
+    </div>
+
+    <ul class="log-pannal-log">
+      <li id="log-console-pan"></li>
+      <li id="log-style-pan"></li>
+      <li id="log-cookie-pan" class="hide"></li>
+      <li id="log-local-pan" class="hide"></li>
+      <li id="log-session-pan" class="hide"></li>
+      <li id="log-xhr-pan" class="hide"></li>
+      <li id="log-static-pan" class="hide"></li>
     </ul>
+
+    <ul class="log-pannal-bottom">
+      <li id="log-clear" class="w-20-p" data-type="log-console">
+        <a href="javascript:;">Clear</a>
+      </li>
+      <li class="p-0 w-80" data-type="log-console">
+        <input id="log-try-input" class="try-input" type="text" placeholder="  Use 'log()' to output" value="">
+      </li>
+      <li id="log-style-enter" class="hide" data-type="log-style">
+        <a href="javascript:;">Enter</a>
+      </li>
+      <li id="log-style-leave" class="hide" data-type="log-style">
+        <a href="javascript:;">Leave</a>
+      </li>
+      <li id="log-style-detail" class="hide" data-type="log-style">
+        <a href="javascript:;">detail</a>
+      </li>
+      <li id="log-static-css" class="hide" data-type="log-static">
+        <a href="javascript:;">Css</a>
+      </li>
+      <li id="log-static-js" class="hide" data-type="log-static">
+        <a href="javascript:;">Js</a>
+      </li>
+    </ul>
+
   </div>
-
-  <ul class="log-pannal-log">
-    <li id="log-console-pan"></li>
-    <li id="log-style-pan">
-      <table class="w-all">
-        <col width="40%">
-        <col width="60%">
-        <thead>
-          <th>prop</th>
-          <th>value</th>
-        </thead>
-        <tbody>
-
-        </tbody>
-      </table>
-    </li>
-    <li id="log-cookie-pan" class="hide">
-      <table class="w-all">
-        <col width="40%">
-        <col width="60%">
-        <thead>
-          <th>key</th>
-          <th>value</th>
-        </thead>
-        <tbody>
-
-        </tbody>
-      </table>
-    </li>
-    <li id="log-local-pan" class="hide">
-      <table class="w-all">
-        <col width="40%">
-        <col width="60%">
-        <thead>
-          <th>key</th>
-          <th>value</th>
-        </thead>
-        <tbody>
-
-        </tbody>
-      </table>
-    </li>
-    <li id="log-session-pan" class="hide">
-      <table class="w-all">
-        <col width="40%">
-        <col width="60%">
-        <thead>
-          <th>key</th>
-          <th>value</th>
-        </thead>
-        <tbody>
-
-        </tbody>
-      </table>
-    </li>
-    <li id="log-xhr-pan" class="hide">
-      <table class="w-all">
-        <col width="60%">
-        <col width="40%">
-        <thead>
-          <th>URL</th>
-          <th>status</th>
-        </thead>
-        <tbody>
-
-        </tbody>
-      </table>
-    </li>
-    <li id="log-css-pan" class="hide">
-      <table class="w-all">
-        <col width="40%">
-        <col width="60%">
-        <thead>
-          <th>file</th>
-          <th>url</th>
-        </thead>
-        <tbody>
-
-        </tbody>
-      </table>
-    </li>
-    <li id="log-js-pan" class="hide">
-      <table class="w-all">
-        <col width="40%">
-        <col width="60%">
-        <thead>
-          <th>file</th>
-          <th>url</th>
-        </thead>
-        <tbody>
-
-        </tbody>
-      </table>
-    </li>
-  </ul>
-
-  <ul class="log-pannal-bottom">
-    <li id="log-clear" class="w-20-p" data-type="log-console">
-      <a href="javascript:;">Clear</a>
-    </li>
-    <li class="p-0 w-80" data-type="log-console">
-      <input id="log-try-input" class="try-input" type="text" placeholder="  Use 'log()' to output" value="">
-    </li>
-    <li id="log-style-enter" class="hide" data-type="log-style">
-      <a href="javascript:;">Enter</a>
-    </li>
-    <li id="log-style-leave" class="hide" data-type="log-style">
-      <a href="javascript:;">Leave</a>
-    </li>
-    <li id="log-style-detail" class="hide" data-type="log-style">
-      <a href="javascript:;">detail</a>
-    </li>
-  </ul>
-
-</div>
 </div>
 </body>
 <script src="./lemon.js"></script>

@@ -81,7 +81,7 @@
 .log-container .log-pannal .log-pannal-bottom{
   overflow: auto;
   width: 100%;
-  height: calc(18.5% - 2px);
+  height: 40px;
   background: #F3F3F3;
   border-top:1px solid #CCC;
   border-bottom:1px solid #CCC;
@@ -108,11 +108,12 @@
 }
 .log-container .log-pannal .log-pannal-btn{
   width: 150%;
+  min-width: 100%;
 }
 .log-container .log-pannal .log-pannal-log{
   overflow: hidden;
   width: 100%;
-  height: 63%
+  height: calc(100% - 82px)
 }
 .log-container .log-pannal .log-detail{
   overflow: auto;
