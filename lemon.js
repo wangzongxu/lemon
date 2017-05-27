@@ -305,14 +305,14 @@
                       })
                       // 单独处理responseText ： 如果返回为blob时 该属性获取会报错
                       try{
-                        if(hasBlob && xhr.responseText instanceof Blob && window.FileReader){
+                        if(hasBlob && xhr.responseType == 'blob' && window.FileReader){
                           var r = new FileReader();
-                          r.readAsText(blob);
+                          r.readAsText(xhr.response);
                           r.onload = () => {
                             xhr.__lemon_data__.responseText = r.result;
                           };
                           r.onerror = (e) => {
-                            xhr.__lemon_data__.responseText = '[ Error in FileReader ]';
+                            xhr.__lemon_data__.responseText = 'Error in FileReader :' + e;
                           };
                         }else{
                           xhr.__lemon_data__.responseText = xhr.responseText;
