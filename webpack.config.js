@@ -8,5 +8,9 @@ module.exports = {
         loader:'css-loader'
       }
     ]
+  },
+  devServer:{
+    port:8080,
+
   }
 }
