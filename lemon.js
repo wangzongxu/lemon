@@ -305,8 +305,6 @@
                       })
                       // 单独处理responseText ： 如果返回为blob时 该属性获取会报错
                       try{
-                        xhr.__lemon_data__.responseText = xhr.responseText;
-                      }catch(e){
                         if(hasBlob && xhr.responseText instanceof Blob && window.FileReader){
                           var r = new FileReader();
                           r.readAsText(blob);
@@ -317,8 +315,10 @@
                             xhr.__lemon_data__.responseText = '[ Error in FileReader ]';
                           };
                         }else{
-                          xhr.__lemon_data__.responseText = '[ ' + xhr.responseType + ' ]';
+                          xhr.__lemon_data__.responseText = xhr.responseText;
                         }
+                      }catch(e){
+                        xhr.__lemon_data__.responseText = '[ ' + xhr.responseType + ' ]';
                       }
 
                       // 取响应头
