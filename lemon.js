@@ -296,10 +296,12 @@
                           console.error(this.__lemon_data__.method.toUpperCase() + '     ' + this.__lemon_data__.requestUrl + '     ' + this.status)
                       }
                       // 取几个常用的
-                      ['responseURL', 'responseType', 'responseText', 'timeout', 'responseXML', 'withCredentials']
+                      ['responseURL', 'responseType', 'timeout', 'responseXML', 'withCredentials']
                       .forEach(function(prop) {
                           xhr.__lemon_data__[prop] = xhr[prop]
                       })
+                      // 单独处理responseText ： 如果返回为blob时 该属性不存在
+                      xhr.__lemon_data__.responseText = xhr.responseText || xhr.responseType;
                       // 取响应头
                       var temp = this.getAllResponseHeaders().split('\n');
                       temp.forEach(function(str) {
