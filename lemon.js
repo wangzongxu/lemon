@@ -307,7 +307,18 @@
                       try{
                         xhr.__lemon_data__.responseText = xhr.responseText;
                       }catch(e){
-                        xhr.__lemon_data__.responseText = '[ ' + xhr.responseType + ' ]';
+                        if(hasBlob && xhr.responseText instanceof Blob && window.FileReader){
+                          var r = new FileReader();
+                          r.readAsText(blob);
+                          r.onload = () => {
+                            xhr.__lemon_data__.responseText = r.result;
+                          };
+                          r.onerror = (e) => {
+                            xhr.__lemon_data__.responseText = '[ Error in FileReader ]';
+                          };
+                        }else{
+                          xhr.__lemon_data__.responseText = '[ ' + xhr.responseType + ' ]';
+                        }
                       }
 
                       // 取响应头
