@@ -46,10 +46,17 @@
 .log-container .hide{
   display: none;
 }
+.log-action{
+  outline: 1px solid #FF9800!important;
+  background:rgba(255, 152, 0, 0.18)!important;
+}
 .log-container *{
   margin: 0;
   padding: 0;
   font-size: 13px;
+}
+.log-container table td,.log-container table th{
+  border-right: 1px solid #CCC
 }
 .log-container .log-pannal{
   z-index: 9999998;
@@ -57,6 +64,7 @@
   bottom: 0;
   left: 0;
   height: 40%;
+  min-height: 270px;
   background: #fff;
   width: 100%;
 }
@@ -113,22 +121,23 @@
 .log-container .log-pannal .log-pannal-log{
   overflow: hidden;
   width: 100%;
-  height: calc(100% - 82px)
+  height: calc(100% - 82px);
 }
 .log-container .log-pannal .log-detail{
   overflow: auto;
   word-wrap: break-word;
   width: 100%;
   height: 100%;
+  border-top: 1px solid #CCC;
   background: #fff
 }
 .log-container .log-detail-close{
   position: absolute;
   top: 10px;
   right: 10px;
-  line-height: 20px;
-  height: 20px;
-  font-size: 20px;
+  line-height: 30px;
+  height: 30px;
+  font-size: 30px;
   cursor:pointer
 }
 .log-container .log-pannal .log-pannal-log>li{
@@ -158,14 +167,16 @@
   display: block;
   z-index: 9999999;
   border-radius:10% 50% 10% 50%;
-  right: 5%;
-  bottom: 5%;
+  left: 80%;
+  top: 85%;
   min-width: 40px;
   width: 45px;
   height: 45px;
   line-height: 45px;
   font-weight: bold;
-  background: url(http://i3.letvimg.com/lc07_lecloud/201705/24/14/15/lemon.png);
+  background: rgb(253,228,143);
+  background: -webkit-linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));
+  background: linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));
   box-shadow: #333 5px 5px 33px -5px;
   text-align: center;
 }
