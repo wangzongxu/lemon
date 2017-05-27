@@ -45,6 +45,9 @@
   var random = function(){
     return (Math.random() + '').substr(2)
   }
+  var hasBlob = (function() {
+    return !!window.Blob
+  })();
   function Lemon() {
       if(!/Mobile/.test(navigator.userAgent)){
         console.warn('Lemon must run on a mobile platform');
@@ -301,7 +304,12 @@
                           xhr.__lemon_data__[prop] = xhr[prop] || '';
                       })
                       // 单独处理responseText ： 如果返回为blob时 该属性不存在
-                      xhr.__lemon_data__.responseText = xhr.responseText || xhr.responseType;
+                      if(hasBlob){
+                        if(xhr.__lemon_data__.responseText instanceof Blob){
+                          xhr.__lemon_data__.responseText = '[' + xhr.responseType + ']';
+                        }
+                      }
+
                       // 取响应头
                       var temp = this.getAllResponseHeaders().split('\n');
                       temp.forEach(function(str) {
