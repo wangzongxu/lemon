@@ -303,11 +303,11 @@
                       .forEach(function(prop) {
                           xhr.__lemon_data__[prop] = xhr[prop] || '';
                       })
-                      // 单独处理responseText ： 如果返回为blob时 该属性不存在
-                      if(hasBlob){
-                        if(xhr.__lemon_data__.responseText instanceof Blob){
-                          xhr.__lemon_data__.responseText = '[' + xhr.responseType + ']';
-                        }
+                      // 单独处理responseText ： 如果返回为blob时 该属性获取会报错
+                      try{
+                        xhr.__lemon_data__.responseText = xhr.responseText;
+                      }catch(e){
+                        xhr.__lemon_data__.responseText = '[ ' + xhr.responseType + ' ]';
                       }
 
                       // 取响应头
