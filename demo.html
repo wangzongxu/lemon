@@ -12,18 +12,23 @@
     padding: 0;
     margin: 0
   }
+  .text-center{
+    text-align: center
+  }
   </style>
-  <link rel="stylesheet" href="./style.css" type="text/css">
+  <link rel="stylesheet" href="./src/style.css">
 </head>
 <body>
 
-  <h2>I'm here</h2>
-  <p>look me</p>
-  <aside>touch this</aside>
+  <h2 class="text-center">I'm Lemon</h2>
+
+  <p class="text-center" style="width:10vw;margin:0 auto">Hello</p>
+
+  <aside class="text-center">Try touching the buttons bellow</aside>
 
 </body>
 
-<script src="./lemon.js"></script>
+<script src="./src/index.js"></script>
 
 <script type="text/javascript">
 
@@ -33,7 +38,7 @@
       console.log(xhr.responseText)
     }
   }
-  xhr.open('get','./demo.json',true)
+  xhr.open('get','./src/demo.json',true)
   xhr.send()
 
 </script>

@@ -63,8 +63,10 @@
   Lemon.prototype = {
       init: function() {
           this.appendDom();
+          this.appendStyle();
           this.bindEvent()
       },
+      // 插入dom
       appendDom: function() {
         var dom = '<div id="log-container" class="log-container">\
           <a class="log-switch" href="javascript:;">lemon</a>\
@@ -117,6 +119,14 @@
           </div>\
         </div>';
         $('body').innerHTML += dom;
+      },
+      // 插入样式
+      appendStyle: function() {
+        var container = $('#log-container');
+        var style = document.createElement('style');
+        style.setAttribute('scoped',true);
+        style.textContent = "css will be injected";
+        container.insertBefore(style, container.firstElementChild);
       },
       // 绑定事件
       bindEvent: function() {
@@ -303,15 +313,15 @@
                       .forEach(function(prop) {
                           xhr.__lemon_data__[prop] = xhr[prop] || '';
                       })
-                      // 单独处理responseText ： 如果返回为blob时 该属性获取会报错
+                      // 单独处理responseText:如果返回为blob时 该属性获取会报错
                       try{
                         if(hasBlob && xhr.responseType == 'blob' && window.FileReader){
                           var r = new FileReader();
                           r.readAsText(xhr.response);
-                          r.onload = () => {
+                          r.onload = function() {
                             xhr.__lemon_data__.responseText = r.result;
                           };
-                          r.onerror = (e) => {
+                          r.onerror = function(e) {
                             xhr.__lemon_data__.responseText = 'Error in FileReader :' + e;
                           };
                         }else{
@@ -584,7 +594,7 @@
                   var script = document.createElement('script');
                   script.async = false;
                   script.type = "text/javascript";
-                  script.innerHTML = 'try{' + code.replace(/(^|[^.])log\(/g, ' console.log(') + ' }catch(e){if(e.message !=="Illegal invocation"){alert(e.message)}}'; // 移动浏览器使用try会报非法调用,暂无解决方法
+                  script.innerHTML = 'try{' + code.replace(/(^|[^.])log\(/g, ' console.log(') + ' }catch(e){if(e.message !=="Illegal invocation"){console.log(e.message)}}'; // 移动浏览器使用try会报非法调用,暂无解决方法
                   document.body.appendChild(script);
 
                   setTimeout(function() {

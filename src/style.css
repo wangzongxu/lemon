@@ -1,4 +1,3 @@
-@charset "UTF-8";
 .log-container .fff-b{
   background: #fff!important
 }
@@ -20,7 +19,7 @@
 }
 .log-container .clearfix:after{
   display: block;
-  content: "";
+  content: '';
   clear: both;
   width: 0;
   height: 0;
@@ -47,7 +46,7 @@
 .log-container .hide{
   display: none;
 }
-.log-container .log-action{
+.log-action{
   outline: 1px solid #FF9800!important;
   background:rgba(255, 152, 0, 0.18)!important;
 }
@@ -55,6 +54,10 @@
   margin: 0;
   padding: 0;
   font-size: 13px;
+  text-align: initial;
+  background: initial;
+  box-sizing: content-box;
+  border: initial;
 }
 .log-container table td,.log-container table th{
   border-right: 1px solid #CCC
