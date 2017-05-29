@@ -17,6 +17,10 @@
 * Xhr面板会输出所有AJAX请求和服务器端返回的数据详情
 * Static面板可以查看当前页面静态资源[css,js]
 
+### Demo
+
+![demo](https://wangzongxu.github.io/img-cache/lemon/lemon.png)
+
 ### 通过npm安装
 
 ```html
