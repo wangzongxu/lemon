@@ -20,7 +20,7 @@
 ### 通过npm安装
 
 ```html
-npm install lemon
+npm install lemon_mobile
 ```
 ### 使用 
 
