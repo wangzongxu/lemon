@@ -137,6 +137,7 @@
       // 绑定事件
       bindEvent: function() {
           this.replaceNativeLog(); // 替换原生log
+          this.replaceNativeError(); // 处理Error
           this.replaceHttpRequest(); // 替换XMLHttpRequest
           this.selectListener(); // 切换log面板
           this.clearListener(); // console面板清空
@@ -393,11 +394,16 @@
                       type: type,
                       log: log
                   });
-                  try {
-                      return window._console[type](log);
-                  } catch (e) {}
+                return window._console[type](log);
               }
           })
+      },
+      // 处理Error
+      replaceNativeError: function(){
+        window.onerror = function (errorMsg, url, line, column, errorObj) {
+            if(/Illegal invocation/i.test(errorMsg))return; // 有些移动端浏览器报错
+                console.error('Error: ' + errorMsg + ' Script: ' + (url || 'unknown') + ' Line: ' + line + ' Column: ' + column);
+            }
       },
       // 获取样式
       getStyleListener: function() {
@@ -599,7 +605,7 @@
                   var script = document.createElement('script');
                   script.async = false;
                   script.type = "text/javascript";
-                  script.innerHTML = 'try{' + code.replace(/(^|[^.])log\(/g, ' console.log(') + ' }catch(e){if(e.message !=="Illegal invocation"){console.log(e.message)}}'; // 移动浏览器使用try会报非法调用,暂无解决方法
+                  script.innerHTML = 'try{' + code.replace(/(^|[^.])log\(/g, ' console.log(') + ' }catch(e){if(e.message !=="Illegal invocation"){console.error(e)}}'; // 移动浏览器使用try会报非法调用,暂无解决方法
                   document.body.appendChild(script);
 
                   setTimeout(function() {
@@ -626,5 +632,9 @@
           })
       }
   }
-  new Lemon();
+  try{
+    new Lemon();
+  }catch(e){
+    alert(e)
+  }
 })();
