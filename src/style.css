@@ -17,6 +17,14 @@
 .log-container .w-all{
   width: 100%
 }
+.log-container .log-algin-center{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto
+}
 .log-container .clearfix:after{
   display: block;
   content: '';

@@ -121,6 +121,9 @@
               <li id="log-static-js" class="hide" data-type="log-static">\
                 <a href="javascript:;">Js</a>\
               </li>\
+              <li id="log-static-img" class="hide" data-type="log-static">\
+                <a href="javascript:;">Image</a>\
+              </li>\
             </ul>\
           </div>\
         </div>';
@@ -508,17 +511,22 @@
             t = e.target.parentNode
           }
           var data = that.staticSource[t.id];
-          var str = '<pre><code>';
-          if(data.url == 'inline'){
+          var str = '';
+          if(/^img/.test(data.id)){ // img
+            str += '<img class="log-algin-center" src="'+ data.url +'" alt="'+ data.name +'">';
+          }else{ // js or css
+            str += '<pre><code>';
+            if(data.url == 'inline'){
             str += data.textContent.replace(/</g,'&lt;');// 防止渲染dom字符串
-          }else{
-            getStaticSource(data.url,function(txt){
-              str += txt.replace(/</g,'&lt;');
-            },function(err){
-              str += '<p style="color:#CCC;font-size:30px;line-height:100px;text-align:center">'+ err.statusText + ' ' + err.status +'</p>';
-            })
+            }else{
+                getStaticSource(data.url,function(txt){
+                str += txt.replace(/</g,'&lt;');
+                },function(err){
+                str += '<p style="color:#CCC;font-size:30px;line-height:100px;text-align:center">'+ err.statusText + ' ' + err.status +'</p>';
+                })
+            }
+            str += '</code></pre>'
           }
-          str += '</code></pre>'
           $('#log-container .log-detail').innerHTML = str;
           $('#log-container .log-detail').classList.remove('hide');
           $('#log-container .log-detail-close').classList.remove('hide');
@@ -549,7 +557,7 @@
             var style = styles[i];
             if(style.textContent.trim() != ''){ // inline
               var styleObj = {
-                name: '&lt;style&gt;...&lt;/style&gt;',
+                name: '&lt;style&gt;&lt;/style&gt;',
                 url: 'inline',
                 textContent: style.textContent,
                 id: 'css' + random()
@@ -579,7 +587,7 @@
               that.staticSource[srcJs.id] = srcJs;
             } else if (script.textContent.trim() != ''){
               var inlineJs = {
-                name: '&lt;script&gt;...&lt;/script&gt;',
+                name: '&lt;script&gt;&lt;/script&gt;',
                 url: 'inline',
                 textContent: script.textContent,
                 id: 'js' + random()
@@ -589,7 +597,27 @@
             }
           }
           $('#log-static-pan tbody').innerHTML = str;
-        })
+        });
+
+        on($('#log-static-img'), 'touchend', function() {
+          that.staticSource = {};
+          var str = '';
+          var imgs = $('img');
+          imgs = imgs.length ? imgs : [imgs];
+          for(var i=0;i<imgs.length;i++){
+            var img = imgs[i];
+            var name = /\/([^\/]+?\..{1,4}$)/.exec(img.src);
+            var imgObj = {
+              name: name ? name[1] : 'unknown',
+              url: img.src,
+              id: 'img' + random()
+           };
+           str += '<tr id='+imgObj.id+' ><td>' + imgObj.name + '</tb><td>' + imgObj.url + '</td></tr>';
+           that.staticSource[imgObj.id] = imgObj;
+          }
+
+          $('#log-static-pan tbody').innerHTML = str;
+        });
       },
       // try it out
       tryItOut: function() {
