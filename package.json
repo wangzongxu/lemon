@@ -1,8 +1,8 @@
 {
-  "name": "lemon",
+  "name": "lemon_mobile",
   "version": "1.0.0",
   "description": "",
-  "main": "lemon.js",
+  "main": "dist/lemon.js",
   "scripts": {
     "build": "gulp"
   },
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/wangzongxu/lemon.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "wangzpngxu",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/wangzongxu/lemon/issues"
