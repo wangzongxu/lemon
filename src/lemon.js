@@ -81,6 +81,7 @@
                 <li id="log-storage"><a href="javascript:;">Storage</a></li>\
                 <li id="log-xhr"><a href="javascript:;">Xhr</a></li>\
                 <li id="log-static"><a href="javascript:;">Static</a></li>\
+                <li id="log-about"><a href="javascript:;">About</a></li>\
               </ul>\
             </div>\
             <ul class="log-pannal-log">\
@@ -90,6 +91,7 @@
               <li id="log-storage-pan" class="hide"></li>\
               <li id="log-xhr-pan" class="hide"></li>\
               <li id="log-static-pan" class="hide"></li>\
+              <li id="log-about-pan" class="hide">意见和建议请到：<a href="https://github.com/wangzongxu/lemon">https://github.com/wangzongxu/lemon</a><br/>邮箱：308929264@qq.com</li>\
             </ul>\
             <ul class="log-pannal-bottom">\
               <li id="log-clear" class="w-20-p" data-type="log-console">\
