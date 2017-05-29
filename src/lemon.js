@@ -189,7 +189,8 @@
             off(document.documentElement || document.body, 'touchend', up);
           }
 
-          on($('.log-container .log-switch'), 'touchstart', function(e) {
+          on(_switch, 'touchstart', function(e) {
+            this.classList.add('active');
             if(e.touches.length ==0)return;
             e.preventDefault();
             movement.mx = e.touches[0].clientX - this.offsetLeft;
@@ -199,6 +200,7 @@
           })
 
           on(_switch, 'touchend', function(e) {
+            this.classList.remove('active');
             if(!moved){
               pannal.classList.toggle('hide');
             }
@@ -539,7 +541,7 @@
             var style = styles[i];
             if(style.textContent.trim() != ''){ // inline
               var styleObj = {
-                name: 'style tag',
+                name: '&lt;style&gt;...&lt;/style&gt;',
                 url: 'inline',
                 textContent: style.textContent,
                 id: 'css' + random()
@@ -569,7 +571,7 @@
               that.staticSource[srcJs.id] = srcJs;
             } else if (script.textContent.trim() != ''){
               var inlineJs = {
-                name: 'script tag',
+                name: '&lt;script&gt;...&lt;/script&gt;',
                 url: 'inline',
                 textContent: script.textContent,
                 id: 'js' + random()

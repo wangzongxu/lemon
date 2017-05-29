@@ -33,10 +33,17 @@
 
 <script type="text/javascript">
 
+  document.cookie = 'lemon=example';
+  localStorage.setItem('example','lemon-localStorage');
+  sessionStorage.setItem('example','lemon-sessionStorage');
+
   var xhr = new XMLHttpRequest
   xhr.onreadystatechange = function(){
     if(this.readyState==this.DONE && this.status==200){
-      console.log(xhr.responseText)
+      console.log(xhr.responseText);
+      console.info('console.info');
+      console.error('console.error');
+      console.warn('console.warn')
     }
   }
   xhr.open('get','./demo.json',true)
