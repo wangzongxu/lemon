@@ -78,8 +78,7 @@
                 <li id="log-console" class="fff-b"><a href="javascript:;">Console</a></li>\
                 <li id="log-style"><a href="javascript:;">Style</a></li>\
                 <li id="log-cookie"><a href="javascript:;">Cookie</a></li>\
-                <li id="log-local"><a href="javascript:;">Local</a></li>\
-                <li id="log-session"><a href="javascript:;">Session</a></li>\
+                <li id="log-storage"><a href="javascript:;">Storage</a></li>\
                 <li id="log-xhr"><a href="javascript:;">Xhr</a></li>\
                 <li id="log-static"><a href="javascript:;">Static</a></li>\
               </ul>\
@@ -88,8 +87,7 @@
               <li id="log-console-pan"></li>\
               <li id="log-style-pan"></li>\
               <li id="log-cookie-pan" class="hide"></li>\
-              <li id="log-local-pan" class="hide"></li>\
-              <li id="log-session-pan" class="hide"></li>\
+              <li id="log-storage-pan" class="hide"></li>\
               <li id="log-xhr-pan" class="hide"></li>\
               <li id="log-static-pan" class="hide"></li>\
             </ul>\
@@ -109,6 +107,12 @@
               <li id="log-style-detail" class="hide" data-type="log-style">\
                 <a href="javascript:;">detail</a>\
               </li>\
+              <li id="log-storage-local" class="hide" data-type="log-storage">\
+                <a href="javascript:;">local</a>\
+              </li>\
+              <li id="log-storage-session" class="hide" data-type="log-storage">\
+                <a href="javascript:;">session</a>\
+              </li>\
               <li id="log-static-css" class="hide" data-type="log-static">\
                 <a href="javascript:;">Css</a>\
               </li>\
@@ -125,7 +129,7 @@
         var container = $('#log-container');
         var style = document.createElement('style');
         style.setAttribute('scoped',true);
-        style.textContent = "css will be injected";
+        style.textContent = ".log-container .fff-b{  background: #fff!important}.log-container table td,.log-container table th{  border-bottom: 1px solid #CCC}.log-container .w-80{  width: 80%!important}.log-container .w-20-p{  width: calc(20% - 12px)!important}.log-container .p-0{  padding: 0!important}.log-container .w-all{  width: 100%}.log-container .clearfix:after{  display: block;  content: '';  clear: both;  width: 0;  height: 0;}.log-container .pos-r{  position: relative;}.log-container .pos-a{  position: absolute;}.log-container .c-red{  color: red!important}.log-container .c-orange{  color: orange!important}.log-container .c-green{  color: green!important}.log-container .c-blue{  color: blue!important}.log-container.hide,.log-container .hide{  display: none;}.log-action{  outline: 1px solid #FF9800!important;  background:rgba(255, 152, 0, 0.18)!important;}.log-container *{  margin: 0;  padding: 0;  font-size: 13px;  text-align: initial;  background: initial;  box-sizing: content-box;  border: initial;}.log-container table td,.log-container table th{  border-right: 1px solid #CCC}.log-container .log-pannal{  z-index: 9999998;  position: fixed;  bottom: 0;  left: 0;  height: 40%;  min-height: 270px;  background: #fff;  width: 100%;}.log-container ul,.log-container li{  list-style: none}.log-container .text-hide{  white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;}.log-container a,.log-container a:hover,.log-container a:target,.log-container a:visited,.log-container a:link{  text-decoration: none;  -webkit-tap-highlight-color: rgba(0,0,0,0);  tap-highlight-color: rgba(0,0,0,0);　-webkit-tap-highlight-color: transparent;  tap-highlight-color: transparent;  color:#333;}.log-container .log-pannal .log-pannal-btn,.log-container .log-pannal .log-pannal-bottom{  overflow: auto;  width: 100%;  height: 40px;  background: #F3F3F3;  border-top:1px solid #CCC;  border-bottom:1px solid #CCC;}.log-container .log-pannal .log-pannal-btn>li,.log-container .log-pannal .log-pannal-bottom>li{  float: left;  height: 100%;  line-height: 40px;  text-align: center;  padding: 0 5px;  border-right: 1px solid #CCC;  background: #F3F3F3;}.log-container .log-pannal-btn-par{  width: 100%;  overflow: auto;}.log-container .log-pannal-btn-par::scrollbar {    display: none;}.log-container .log-pannal-btn-par::-webkit-scrollbar {    display: none;}.log-container .log-pannal .log-pannal-btn{  width: 150%;  min-width: 100%;}.log-container .log-pannal .log-pannal-log{  overflow: hidden;  width: 100%;  height: calc(100% - 82px);}.log-container .log-pannal .log-detail{  overflow: auto;  /*word-wrap: break-word;*/  width: 100%;  height: 100%;  border-top: 1px solid #CCC;  background: #fff}.log-container .log-detail-close{  position: absolute;  top: 10px;  right: 10px;  line-height: 30px;  height: 30px;  font-size: 30px;  cursor:pointer}.log-container .log-pannal .log-pannal-log>li{  width: 100%;  height: 100%;  word-wrap: break-word;  overflow: auto;}.log-container .log-pannal .log-pannal-log>li#log-console-pan>p{  border-bottom: 1px solid #CCC;  line-height: 22px;  word-wrap: break-word;  overflow: auto;}.log-container .log-pannal-bottom>li .try-input{  width: calc(100vw - 45px);  height: 100%;  border:none;}.log-container .log-pannal-bottom>li>a:active{  color: #fff!important;}.log-container .log-switch{  -webkit-user-select:none;  user-select:none;  position: fixed;  display: block;  z-index: 9999999;  border-radius:10% 50% 10% 50%;  left: 80%;  top: 85%;  min-width: 40px;  width: 45px;  height: 45px;  line-height: 45px;  font-weight: bold;  background: rgb(253,228,143);  background: -webkit-linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));  background: linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));  box-shadow: #333 5px 5px 33px -5px;  text-align: center;}.log-container .log-switch.active{  background: rgb(176, 233, 108)!important;  box-shadow: rgb(145, 215, 63) 5px 5px 33px -5px;}";
         container.insertBefore(style, container.firstElementChild);
       },
       // 绑定事件
@@ -135,8 +139,7 @@
           this.selectListener(); // 切换log面板
           this.clearListener(); // console面板清空
           this.getCookiesListener(); // 获取cookie
-          this.getLocalListener(); // 获取localStorage
-          this.getSessionListener(); // 获取sessionStorage
+          this.getStorageListener(); // 获取Storage
           this.getStyleListener(); // 获取样式
           this.getStaticListener(); // 获取静态资源
           this.togglePannal(); // 隐藏或显示控制台
@@ -186,7 +189,8 @@
             off(document.documentElement || document.body, 'touchend', up);
           }
 
-          on($('.log-container .log-switch'), 'touchstart', function(e) {
+          on(_switch, 'touchstart', function(e) {
+            this.classList.add('active');
             if(e.touches.length ==0)return;
             e.preventDefault();
             movement.mx = e.touches[0].clientX - this.offsetLeft;
@@ -196,6 +200,7 @@
           })
 
           on(_switch, 'touchend', function(e) {
+            this.classList.remove('active');
             if(!moved){
               pannal.classList.toggle('hide');
             }
@@ -461,31 +466,29 @@
               $('#log-cookie-pan tbody').innerHTML = str
           })
       },
-      // 获取session
-      getSessionListener: function() {
-          $('#log-session-pan').innerHTML = this.tableBegin('key','value', 40, 60) + this.tableEnd();
-          on($('#log-session'), 'touchend', function() {
+      // 获取storage
+      getStorageListener: function() {
+          $('#log-storage-pan').innerHTML = this.tableBegin('key','value', 40, 60) + this.tableEnd();
+          // session
+          on($('#log-storage-session'), 'touchend', function() {
               if (sessionStorage.length == 0) return;
               var str = '';
               for (var i = 0; i < sessionStorage.length; i++) {
                   var k = sessionStorage.key(i)
                   str += '<tr><td>' + k + '</tb><td>' + sessionStorage.getItem(k) + '</td></tr>';
               }
-              $('#log-session-pan tbody').innerHTML = str
-          })
-      },
-      // 获取localstorage
-      getLocalListener: function() {
-          $('#log-local-pan').innerHTML = this.tableBegin('key','value', 40, 60) + this.tableEnd();
-          on($('#log-local'), 'touchend', function() {
+              $('#log-storage-pan tbody').innerHTML = str
+          });
+          // local
+          on($('#log-storage-local'), 'touchend', function() {
               if (localStorage.length == 0) return;
               var str = '';
               for (var i = 0; i < localStorage.length; i++) {
                   var k = localStorage.key(i)
                   str += '<tr><td>' + k + '</tb><td>' + localStorage.getItem(k) + '</td></tr>';
               }
-              $('#log-local-pan tbody').innerHTML = str
-          })
+              $('#log-storage-pan tbody').innerHTML = str
+          });
       },
       // 获取静态资源
       getStaticListener: function() {
@@ -538,7 +541,7 @@
             var style = styles[i];
             if(style.textContent.trim() != ''){ // inline
               var styleObj = {
-                name: 'style tag',
+                name: '&lt;style&gt;...&lt;/style&gt;',
                 url: 'inline',
                 textContent: style.textContent,
                 id: 'css' + random()
@@ -568,7 +571,7 @@
               that.staticSource[srcJs.id] = srcJs;
             } else if (script.textContent.trim() != ''){
               var inlineJs = {
-                name: 'script tag',
+                name: '&lt;script&gt;...&lt;/script&gt;',
                 url: 'inline',
                 textContent: script.textContent,
                 id: 'js' + random()

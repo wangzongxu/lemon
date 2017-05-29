@@ -4,9 +4,8 @@ var rm = require('rimraf')
 var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename');
-var prevJs;
 
-gulp.task('build',function(){
+gulp.task('cleanAndInsertSync',function(){
 
   rm.sync('./dist');
 
@@ -14,21 +13,19 @@ gulp.task('build',function(){
               .replace(/\n|\r/g,"")
               .replace(/"/g,"'");
 
-  prevJs = fs.readFileSync('./src/lemon.js', {encoding:'utf8'});
+  var js = fs.readFileSync('./src/lemon.js', {encoding:'utf8'})
+             .replace('css will be injected', css);
 
-  var curJs = prevJs.replace('css will be injected', css)
+  fs.mkdirSync('./dist');
+  fs.writeFileSync('./dist/lemon.js', js);
 
-  fs.writeFileSync('./src/lemon.js', curJs);
+})
 
-  gulp.src('./src/lemon.js')
-      .pipe(gulp.dest('./dist'))
+gulp.task('build', function(){
+    gulp.src('./dist/lemon.js')
       .pipe(rename('lemon.min.js'))
       .pipe(uglify())
       .pipe(gulp.dest('./dist'))
 })
 
-gulp.task('reset', function(){
-  fs.writeFileSync('./src/lemon.js', prevJs);
-})
-
-gulp.task('default', ['build', 'reset'])
+gulp.task('default', ['cleanAndInsertSync', 'build'])
