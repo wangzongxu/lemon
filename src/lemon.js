@@ -78,8 +78,7 @@
                 <li id="log-console" class="fff-b"><a href="javascript:;">Console</a></li>\
                 <li id="log-style"><a href="javascript:;">Style</a></li>\
                 <li id="log-cookie"><a href="javascript:;">Cookie</a></li>\
-                <li id="log-local"><a href="javascript:;">Local</a></li>\
-                <li id="log-session"><a href="javascript:;">Session</a></li>\
+                <li id="log-storage"><a href="javascript:;">Storage</a></li>\
                 <li id="log-xhr"><a href="javascript:;">Xhr</a></li>\
                 <li id="log-static"><a href="javascript:;">Static</a></li>\
               </ul>\
@@ -88,8 +87,7 @@
               <li id="log-console-pan"></li>\
               <li id="log-style-pan"></li>\
               <li id="log-cookie-pan" class="hide"></li>\
-              <li id="log-local-pan" class="hide"></li>\
-              <li id="log-session-pan" class="hide"></li>\
+              <li id="log-storage-pan" class="hide"></li>\
               <li id="log-xhr-pan" class="hide"></li>\
               <li id="log-static-pan" class="hide"></li>\
             </ul>\
@@ -108,6 +106,12 @@
               </li>\
               <li id="log-style-detail" class="hide" data-type="log-style">\
                 <a href="javascript:;">detail</a>\
+              </li>\
+              <li id="log-storage-local" class="hide" data-type="log-storage">\
+                <a href="javascript:;">local</a>\
+              </li>\
+              <li id="log-storage-session" class="hide" data-type="log-storage">\
+                <a href="javascript:;">session</a>\
               </li>\
               <li id="log-static-css" class="hide" data-type="log-static">\
                 <a href="javascript:;">Css</a>\
@@ -135,8 +139,7 @@
           this.selectListener(); // 切换log面板
           this.clearListener(); // console面板清空
           this.getCookiesListener(); // 获取cookie
-          this.getLocalListener(); // 获取localStorage
-          this.getSessionListener(); // 获取sessionStorage
+          this.getStorageListener(); // 获取Storage
           this.getStyleListener(); // 获取样式
           this.getStaticListener(); // 获取静态资源
           this.togglePannal(); // 隐藏或显示控制台
@@ -461,31 +464,29 @@
               $('#log-cookie-pan tbody').innerHTML = str
           })
       },
-      // 获取session
-      getSessionListener: function() {
-          $('#log-session-pan').innerHTML = this.tableBegin('key','value', 40, 60) + this.tableEnd();
-          on($('#log-session'), 'touchend', function() {
+      // 获取storage
+      getStorageListener: function() {
+          $('#log-storage-pan').innerHTML = this.tableBegin('key','value', 40, 60) + this.tableEnd();
+          // session
+          on($('#log-storage-session'), 'touchend', function() {
               if (sessionStorage.length == 0) return;
               var str = '';
               for (var i = 0; i < sessionStorage.length; i++) {
                   var k = sessionStorage.key(i)
                   str += '<tr><td>' + k + '</tb><td>' + sessionStorage.getItem(k) + '</td></tr>';
               }
-              $('#log-session-pan tbody').innerHTML = str
-          })
-      },
-      // 获取localstorage
-      getLocalListener: function() {
-          $('#log-local-pan').innerHTML = this.tableBegin('key','value', 40, 60) + this.tableEnd();
-          on($('#log-local'), 'touchend', function() {
+              $('#log-storage-pan tbody').innerHTML = str
+          });
+          // local
+          on($('#log-storage-local'), 'touchend', function() {
               if (localStorage.length == 0) return;
               var str = '';
               for (var i = 0; i < localStorage.length; i++) {
                   var k = localStorage.key(i)
                   str += '<tr><td>' + k + '</tb><td>' + localStorage.getItem(k) + '</td></tr>';
               }
-              $('#log-local-pan tbody').innerHTML = str
-          })
+              $('#log-storage-pan tbody').innerHTML = str
+          });
       },
       // 获取静态资源
       getStaticListener: function() {
