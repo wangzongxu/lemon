@@ -13,6 +13,10 @@
     padding: 0;
     margin: 0
   }
+  body{
+    background: url(https://wangzongxu.github.io/img-cache/lemon/lemon_background.jpeg);
+    background-size:contain
+  }
   .text-center{
     text-align: center
   }
@@ -49,5 +53,13 @@
   xhr.open('get','./demo.json',true)
   xhr.send()
 
+  var xhr2 = new XMLHttpRequest
+  xhr2.onreadystatechange = function(){
+    if(this.readyState==this.DONE && this.status==200){
+      console.log(xhr2.responseText);
+    }
+  }
+  xhr2.open('get','./notfound.json',true)
+  xhr2.send()
 </script>
 </html>
