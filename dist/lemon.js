@@ -121,6 +121,9 @@
               <li id="log-static-js" class="hide" data-type="log-static">\
                 <a href="javascript:;">Js</a>\
               </li>\
+              <li id="log-static-img" class="hide" data-type="log-static">\
+                <a href="javascript:;">Image</a>\
+              </li>\
             </ul>\
           </div>\
         </div>';
@@ -131,12 +134,13 @@
         var container = $('#log-container');
         var style = document.createElement('style');
         style.setAttribute('scoped',true);
-        style.textContent = ".log-container .fff-b{  background: #fff!important}.log-container table td,.log-container table th{  border-bottom: 1px solid #CCC}.log-container .w-80{  width: 80%!important}.log-container .w-20-p{  width: calc(20% - 12px)!important}.log-container .p-0{  padding: 0!important}.log-container .w-all{  width: 100%}.log-container .clearfix:after{  display: block;  content: '';  clear: both;  width: 0;  height: 0;}.log-container .pos-r{  position: relative;}.log-container .pos-a{  position: absolute;}.log-container .c-red{  color: red!important}.log-container .c-orange{  color: orange!important}.log-container .c-green{  color: green!important}.log-container .c-blue{  color: blue!important}.log-container.hide,.log-container .hide{  display: none;}.log-action{  outline: 1px solid #FF9800!important;  background:rgba(255, 152, 0, 0.18)!important;}.log-container *{  margin: 0;  padding: 0;  font-size: 13px;  text-align: initial;  background: initial;  box-sizing: content-box;  border: initial;}.log-container table td,.log-container table th{  border-right: 1px solid #CCC}.log-container .log-pannal{  z-index: 9999998;  position: fixed;  bottom: 0;  left: 0;  height: 40%;  min-height: 270px;  background: #fff;  width: 100%;}.log-container ul,.log-container li{  list-style: none}.log-container .text-hide{  white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;}.log-container a,.log-container a:hover,.log-container a:target,.log-container a:visited,.log-container a:link{  text-decoration: none;  -webkit-tap-highlight-color: rgba(0,0,0,0);  tap-highlight-color: rgba(0,0,0,0);　-webkit-tap-highlight-color: transparent;  tap-highlight-color: transparent;  color:#333;}.log-container .log-pannal .log-pannal-btn,.log-container .log-pannal .log-pannal-bottom{  overflow: auto;  width: 100%;  height: 40px;  background: #F3F3F3;  border-top:1px solid #CCC;  border-bottom:1px solid #CCC;}.log-container .log-pannal .log-pannal-btn>li,.log-container .log-pannal .log-pannal-bottom>li{  float: left;  height: 100%;  line-height: 40px;  text-align: center;  padding: 0 5px;  border-right: 1px solid #CCC;  background: #F3F3F3;}.log-container .log-pannal-btn-par{  width: 100%;  overflow: auto;}.log-container .log-pannal-btn-par::scrollbar {    display: none;}.log-container .log-pannal-btn-par::-webkit-scrollbar {    display: none;}.log-container .log-pannal .log-pannal-btn{  width: 150%;  min-width: 100%;}.log-container .log-pannal .log-pannal-log{  overflow: hidden;  width: 100%;  height: calc(100% - 82px);}.log-container .log-pannal .log-detail{  overflow: auto;  /*word-wrap: break-word;*/  width: 100%;  height: 100%;  border-top: 1px solid #CCC;  background: #fff}.log-container .log-detail-close{  position: absolute;  top: 10px;  right: 10px;  line-height: 30px;  height: 30px;  font-size: 30px;  cursor:pointer}.log-container .log-pannal .log-pannal-log>li{  width: 100%;  height: 100%;  word-wrap: break-word;  overflow: auto;}.log-container .log-pannal .log-pannal-log>li#log-console-pan>p{  border-bottom: 1px solid #CCC;  line-height: 22px;  word-wrap: break-word;  overflow: auto;}.log-container .log-pannal-bottom>li .try-input{  width: calc(100vw - 45px);  height: 100%;  border:none;}.log-container .log-pannal-bottom>li>a:active{  color: #fff!important;}.log-container .log-switch{  -webkit-user-select:none;  user-select:none;  position: fixed;  display: block;  z-index: 9999999;  border-radius:10% 50% 10% 50%;  left: 80%;  top: 85%;  min-width: 40px;  width: 45px;  height: 45px;  line-height: 45px;  font-weight: bold;  background: rgb(253,228,143);  background: -webkit-linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));  background: linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));  box-shadow: #333 5px 5px 33px -5px;  text-align: center;}.log-container .log-switch.active{  background: rgb(176, 233, 108)!important;  box-shadow: rgb(145, 215, 63) 5px 5px 33px -5px;}";
+        style.textContent = ".log-container .fff-b{  background: #fff!important}.log-container table td,.log-container table th{  border-bottom: 1px solid #CCC}.log-container .w-80{  width: 80%!important}.log-container .w-20-p{  width: calc(20% - 12px)!important}.log-container .p-0{  padding: 0!important}.log-container .w-all{  width: 100%}.log-container .log-algin-center{  position: absolute;  left: 0;  top: 0;  right: 0;  bottom: 0;  margin: auto}.log-container .clearfix:after{  display: block;  content: '';  clear: both;  width: 0;  height: 0;}.log-container .pos-r{  position: relative;}.log-container .pos-a{  position: absolute;}.log-container .c-red{  color: red!important}.log-container .c-orange{  color: orange!important}.log-container .c-green{  color: green!important}.log-container .c-blue{  color: blue!important}.log-container.hide,.log-container .hide{  display: none;}.log-action{  outline: 1px solid #FF9800!important;  background:rgba(255, 152, 0, 0.18)!important;}.log-container *{  margin: 0;  padding: 0;  font-size: 13px;  text-align: initial;  background: initial;  box-sizing: content-box;  border: initial;}.log-container table td,.log-container table th{  border-right: 1px solid #CCC}.log-container .log-pannal{  z-index: 9999998;  position: fixed;  bottom: 0;  left: 0;  height: 40%;  min-height: 270px;  background: #fff;  width: 100%;}.log-container ul,.log-container li{  list-style: none}.log-container .text-hide{  white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;}.log-container a,.log-container a:hover,.log-container a:target,.log-container a:visited,.log-container a:link{  text-decoration: none;  -webkit-tap-highlight-color: rgba(0,0,0,0);  tap-highlight-color: rgba(0,0,0,0);　-webkit-tap-highlight-color: transparent;  tap-highlight-color: transparent;  color:#333;}.log-container .log-pannal .log-pannal-btn,.log-container .log-pannal .log-pannal-bottom{  overflow: auto;  width: 100%;  height: 40px;  background: #F3F3F3;  border-top:1px solid #CCC;  border-bottom:1px solid #CCC;}.log-container .log-pannal .log-pannal-btn>li,.log-container .log-pannal .log-pannal-bottom>li{  float: left;  height: 100%;  line-height: 40px;  text-align: center;  padding: 0 5px;  border-right: 1px solid #CCC;  background: #F3F3F3;}.log-container .log-pannal-btn-par{  width: 100%;  overflow: auto;}.log-container .log-pannal-btn-par::scrollbar {    display: none;}.log-container .log-pannal-btn-par::-webkit-scrollbar {    display: none;}.log-container .log-pannal .log-pannal-btn{  width: 150%;  min-width: 100%;}.log-container .log-pannal .log-pannal-log{  overflow: hidden;  width: 100%;  height: calc(100% - 82px);}.log-container .log-pannal .log-detail{  overflow: auto;  /*word-wrap: break-word;*/  width: 100%;  height: 100%;  border-top: 1px solid #CCC;  background: #fff}.log-container .log-detail-close{  position: absolute;  top: 10px;  right: 10px;  line-height: 30px;  height: 30px;  font-size: 30px;  cursor:pointer}.log-container .log-pannal .log-pannal-log>li{  width: 100%;  height: 100%;  word-wrap: break-word;  overflow: auto;}.log-container .log-pannal .log-pannal-log>li#log-console-pan>p{  border-bottom: 1px solid #CCC;  line-height: 22px;  word-wrap: break-word;  overflow: auto;}.log-container .log-pannal-bottom>li .try-input{  width: calc(100vw - 45px);  height: 100%;  border:none;}.log-container .log-pannal-bottom>li>a:active{  color: #fff!important;}.log-container .log-switch{  -webkit-user-select:none;  user-select:none;  position: fixed;  display: block;  z-index: 9999999;  border-radius:10% 50% 10% 50%;  left: 80%;  top: 85%;  min-width: 40px;  width: 45px;  height: 45px;  line-height: 45px;  font-weight: bold;  background: rgb(253,228,143);  background: -webkit-linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));  background: linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));  box-shadow: #333 5px 5px 33px -5px;  text-align: center;}.log-container .log-switch.active{  background: rgb(176, 233, 108)!important;  box-shadow: rgb(145, 215, 63) 5px 5px 33px -5px;}";
         container.insertBefore(style, container.firstElementChild);
       },
       // 绑定事件
       bindEvent: function() {
           this.replaceNativeLog(); // 替换原生log
+          this.replaceNativeError(); // 处理Error
           this.replaceHttpRequest(); // 替换XMLHttpRequest
           this.selectListener(); // 切换log面板
           this.clearListener(); // console面板清空
@@ -393,11 +397,18 @@
                       type: type,
                       log: log
                   });
-                  try {
-                      return window._console[type](log);
-                  } catch (e) {}
+                try{ // TODO:meizu和某些浏览器会执行两次 第二次报报非法调用 原因不明
+                    return window._console[type](log);
+                }catch(e){}
               }
           })
+      },
+      // 处理Error
+      replaceNativeError: function(){
+        window.onerror = function (errorMsg, url, line, column, errorObj) {
+            if(/Illegal invocation/i.test(errorMsg))return; // TODO:有些移动端浏览器报错
+                console.error('Error: ' + errorMsg + ' Script: ' + (url || 'unknown') + ' Line: ' + line + ' Column: ' + column);
+            }
       },
       // 获取样式
       getStyleListener: function() {
@@ -495,24 +506,29 @@
       // 获取静态资源
       getStaticListener: function() {
         var that = this;
-        $('#log-static-pan').innerHTML = that.tableBegin('file','url or inline', 60, 40) + that.tableEnd();
+        $('#log-static-pan').innerHTML = that.tableBegin('file','url', 40, 60) + that.tableEnd();
         on($('#log-static-pan tbody'), 'touchend', function(e){
           var t = e.target;
           if(t.tagName == 'TD'){
             t = e.target.parentNode
           }
           var data = that.staticSource[t.id];
-          var str = '<pre><code>';
-          if(data.url == 'inline'){
+          var str = '';
+          if(/^img/.test(data.id)){ // img
+            str += '<img class="log-algin-center" src="'+ data.url +'" alt="'+ data.name +'">';
+          }else{ // js or css
+            str += '<pre><code>';
+            if(data.url == 'inline'){
             str += data.textContent.replace(/</g,'&lt;');// 防止渲染dom字符串
-          }else{
-            getStaticSource(data.url,function(txt){
-              str += txt.replace(/</g,'&lt;');
-            },function(err){
-              str += '<p style="color:#CCC;font-size:30px;line-height:100px;text-align:center">'+ err.statusText + ' ' + err.status +'</p>';
-            })
+            }else{
+                getStaticSource(data.url,function(txt){
+                str += txt.replace(/</g,'&lt;');
+                },function(err){
+                str += '<p style="color:#CCC;font-size:30px;line-height:100px;text-align:center">'+ err.statusText + ' ' + err.status +'</p>';
+                })
+            }
+            str += '</code></pre>'
           }
-          str += '</code></pre>'
           $('#log-container .log-detail').innerHTML = str;
           $('#log-container .log-detail').classList.remove('hide');
           $('#log-container .log-detail-close').classList.remove('hide');
@@ -583,7 +599,27 @@
             }
           }
           $('#log-static-pan tbody').innerHTML = str;
-        })
+        });
+
+        on($('#log-static-img'), 'touchend', function() {
+          that.staticSource = {};
+          var str = '';
+          var imgs = $('img');
+          imgs = imgs.length ? imgs : [imgs];
+          for(var i=0;i<imgs.length;i++){
+            var img = imgs[i];
+            var name = /\/([^\/]+?\..{1,4}$)/.exec(img.src);
+            var imgObj = {
+              name: name ? name[1] : 'unknown',
+              url: img.src,
+              id: 'img' + random()
+           };
+           str += '<tr id='+imgObj.id+' ><td>' + imgObj.name + '</tb><td>' + imgObj.url + '</td></tr>';
+           that.staticSource[imgObj.id] = imgObj;
+          }
+
+          $('#log-static-pan tbody').innerHTML = str;
+        });
       },
       // try it out
       tryItOut: function() {
@@ -599,7 +635,7 @@
                   var script = document.createElement('script');
                   script.async = false;
                   script.type = "text/javascript";
-                  script.innerHTML = 'try{' + code.replace(/(^|[^.])log\(/g, ' console.log(') + ' }catch(e){if(e.message !=="Illegal invocation"){console.log(e.message)}}'; // 移动浏览器使用try会报非法调用,暂无解决方法
+                  script.innerHTML = 'try{' + code.replace(/(^|[^.])log\(/g, ' console.log(') + ' }catch(e){if(e.message !=="Illegal invocation"){console.error(e)}}'; // TODO:移动浏览器使用try会报非法调用,暂无解决方法
                   document.body.appendChild(script);
 
                   setTimeout(function() {
@@ -626,5 +662,9 @@
           })
       }
   }
-  new Lemon();
+  try{
+    new Lemon();
+  }catch(e){
+    alert(e)
+  }
 })();

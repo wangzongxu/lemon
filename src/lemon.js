@@ -397,14 +397,16 @@
                       type: type,
                       log: log
                   });
-                return window._console[type](log);
+                try{ // TODO:meizu和某些浏览器会执行两次 第二次报报非法调用 原因不明
+                    return window._console[type](log);
+                }catch(e){}
               }
           })
       },
       // 处理Error
       replaceNativeError: function(){
         window.onerror = function (errorMsg, url, line, column, errorObj) {
-            if(/Illegal invocation/i.test(errorMsg))return; // 有些移动端浏览器报错
+            if(/Illegal invocation/i.test(errorMsg))return; // TODO:有些移动端浏览器报错
                 console.error('Error: ' + errorMsg + ' Script: ' + (url || 'unknown') + ' Line: ' + line + ' Column: ' + column);
             }
       },
@@ -504,7 +506,7 @@
       // 获取静态资源
       getStaticListener: function() {
         var that = this;
-        $('#log-static-pan').innerHTML = that.tableBegin('file','url or inline', 60, 40) + that.tableEnd();
+        $('#log-static-pan').innerHTML = that.tableBegin('file','url', 40, 60) + that.tableEnd();
         on($('#log-static-pan tbody'), 'touchend', function(e){
           var t = e.target;
           if(t.tagName == 'TD'){
@@ -557,7 +559,7 @@
             var style = styles[i];
             if(style.textContent.trim() != ''){ // inline
               var styleObj = {
-                name: '&lt;style&gt;&lt;/style&gt;',
+                name: '&lt;style&gt;...&lt;/style&gt;',
                 url: 'inline',
                 textContent: style.textContent,
                 id: 'css' + random()
@@ -587,7 +589,7 @@
               that.staticSource[srcJs.id] = srcJs;
             } else if (script.textContent.trim() != ''){
               var inlineJs = {
-                name: '&lt;script&gt;&lt;/script&gt;',
+                name: '&lt;script&gt;...&lt;/script&gt;',
                 url: 'inline',
                 textContent: script.textContent,
                 id: 'js' + random()
@@ -633,7 +635,7 @@
                   var script = document.createElement('script');
                   script.async = false;
                   script.type = "text/javascript";
-                  script.innerHTML = 'try{' + code.replace(/(^|[^.])log\(/g, ' console.log(') + ' }catch(e){if(e.message !=="Illegal invocation"){console.error(e)}}'; // 移动浏览器使用try会报非法调用,暂无解决方法
+                  script.innerHTML = 'try{' + code.replace(/(^|[^.])log\(/g, ' console.log(') + ' }catch(e){if(e.message !=="Illegal invocation"){console.error(e)}}'; // TODO:移动浏览器使用try会报非法调用,暂无解决方法
                   document.body.appendChild(script);
 
                   setTimeout(function() {
