@@ -322,7 +322,7 @@
                       // 取几个常用的
                       ['responseURL', 'responseType', 'timeout', 'withCredentials']
                       .forEach(function(prop) {
-                          xhr.__lemon_data__[prop] = xhr[prop] || '';
+                          xhr.__lemon_data__[prop] = testType(xhr[prop], 'undefined') ? '' : xhr[prop];
                       })
                       // 单独处理responseText:如果返回为blob时 该属性获取会报错
                       try{
