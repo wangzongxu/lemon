@@ -29,6 +29,13 @@
       eles.removeEventListener(type, fn, false);
   }
   var getStaticSource = function(url,suc,err) {
+    if(/^file/.test(url)){ // 网页是本地运行
+        err && err({
+            statusText: 'can not views local file',
+            status: ''
+        });
+        return;
+    }
     var xhr = new window._XMLHttpRequest;
     xhr.open('get',url,false);
     xhr.onreadystatechange = function(){
@@ -515,7 +522,7 @@
           var data = that.staticSource[t.id];
           var str = '';
           if(/^img/.test(data.id)){ // img
-            str += '<img class="log-algin-center" src="'+ data.url +'" alt="'+ data.name +'">';
+            str += '<img style="max-height:80%" class="log-algin-center" src="'+ data.url +'" alt="'+ data.name +'">';
           }else{ // js or css
             str += '<pre><code>';
             if(data.url == 'inline'){
