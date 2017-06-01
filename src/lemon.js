@@ -100,7 +100,7 @@
               <li id="log-xhr-pan" class="hide"></li>\
               <li id="log-static-pan" class="hide"></li>\
               <li id="log-ua-pan" class="hide"></li>\
-              <li id="log-about-pan" class="hide">意见和建议请到：<a href="https://github.com/wangzongxu/lemon">https://github.com/wangzongxu/lemon</a><br/>邮箱：308929264@qq.com</li>\
+              <li id="log-about-pan" class="hide">意见和建议请到：<a style="text-decoration: underline!important;" href="https://github.com/wangzongxu/lemon/issues">ISSUES</a><br/>邮箱：308929264@qq.com</li>\
             </ul>\
             <ul class="log-pannal-bottom">\
               <li id="log-clear" class="w-20-p" data-type="log-console">\
@@ -218,7 +218,7 @@
           on(_switch, 'touchend', function(e) {
             this.classList.remove('active');
             if(!moved){
-              pannal.classList.toggle('hide');
+              pannal.classList.toggle('height-0');
             }
             moved = false;
           })

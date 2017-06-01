@@ -73,12 +73,18 @@
 .log-container .log-pannal{
   z-index: 9999998;
   position: fixed;
+  transition: all 0.2s linear 0s;
+  -webkit-transition: all 0.2s linear 0s;
   bottom: 0;
   left: 0;
   height: 40%;
   min-height: 270px;
   background: #fff;
   width: 100%;
+}
+.log-container .log-pannal.height-0{
+  min-height: 0;
+  height: 0
 }
 .log-container ul,
 .log-container li{
