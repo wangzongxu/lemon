@@ -88,6 +88,7 @@
                 <li id="log-storage"><a href="javascript:;">Storage</a></li>\
                 <li id="log-xhr"><a href="javascript:;">Xhr</a></li>\
                 <li id="log-static"><a href="javascript:;">Static</a></li>\
+                <li id="log-ua"><a href="javascript:;">UA</a></li>\
                 <li id="log-about"><a href="javascript:;">About</a></li>\
               </ul>\
             </div>\
@@ -98,6 +99,7 @@
               <li id="log-storage-pan" class="hide"></li>\
               <li id="log-xhr-pan" class="hide"></li>\
               <li id="log-static-pan" class="hide"></li>\
+              <li id="log-ua-pan" class="hide"></li>\
               <li id="log-about-pan" class="hide">意见和建议请到：<a href="https://github.com/wangzongxu/lemon">https://github.com/wangzongxu/lemon</a><br/>邮箱：308929264@qq.com</li>\
             </ul>\
             <ul class="log-pannal-bottom">\
@@ -114,7 +116,7 @@
                 <a href="javascript:;">Leave</a>\
               </li>\
               <li id="log-style-detail" class="hide" data-type="log-style">\
-                <a href="javascript:;">detail</a>\
+                <a href="javascript:;">Detail</a>\
               </li>\
               <li id="log-storage-local" class="hide" data-type="log-storage">\
                 <a href="javascript:;">local</a>\
@@ -155,6 +157,7 @@
           this.getStorageListener(); // 获取Storage
           this.getStyleListener(); // 获取样式
           this.getStaticListener(); // 获取静态资源
+          this.getUaListener(); // 获取UA
           this.togglePannal(); // 隐藏或显示控制台
           this.detailClose(); // 关闭详情面板
           this.tryItOut(); // 输出js功能
@@ -626,6 +629,20 @@
           }
 
           $('#log-static-pan tbody').innerHTML = str;
+        });
+      },
+      // 获取UA
+      getUaListener: function() {
+        $('#log-ua-pan').innerHTML = this.tableBegin('prop','value', 40, 60) + this.tableEnd();
+        on($('#log-ua'), 'touchend', function() {
+            var na = window.navigator;
+            var str = '';
+            for (var k in na) {
+                if (typeof na[k] === 'string') {
+                    str += '<tr><td>'+ k +'</td><td>'+ na[k] +'</td></tr>';
+                }
+            }
+            $('#log-ua-pan tbody').innerHTML = str   
         });
       },
       // try it out
