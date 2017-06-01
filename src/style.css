@@ -17,6 +17,17 @@
 .log-container .w-all{
   width: 100%
 }
+.log-container .log-select{
+  display: block;
+  width: 40px;
+  height: 40px;
+  background: url(http://i2.letvimg.com/lc06_lecloud/201706/01/15/13/select.png) no-repeat 10px 10px;
+  background-size: 20px 20px;
+}
+.log-container .log-select.active{
+  background: url(http://i1.letvimg.com/lc03_lecloud/201706/01/15/13/select-active.png) no-repeat 10px 10px;
+  background-size: 20px 20px;
+}
 .log-container .log-algin-center{
   position: absolute;
   left: 0;
@@ -56,7 +67,6 @@
 }
 .log-action{
   outline: 1px solid #FF9800!important;
-  background:rgba(255, 152, 0, 0.18)!important;
 }
 .log-container *{
   margin: 0;
@@ -66,6 +76,10 @@
   background: initial;
   box-sizing: content-box;
   border: initial;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  tap-highlight-color: rgba(0,0,0,0);
+　-webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
 }
 .log-container table td,.log-container table th{
   border-right: 1px solid #CCC
@@ -97,10 +111,6 @@
 }
 .log-container a,.log-container a:hover,.log-container a:target,.log-container a:visited,.log-container a:link{
   text-decoration: none;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  tap-highlight-color: rgba(0,0,0,0);
-　-webkit-tap-highlight-color: transparent;
-  tap-highlight-color: transparent;
   color:#333;
 }
 .log-container .log-pannal .log-pannal-btn,

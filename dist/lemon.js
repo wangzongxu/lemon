@@ -1,6 +1,9 @@
 ;(function(){
   var testType = function(target, type) {
-      return Object.prototype.toString.call(target).match(type) !== null
+      var reg = new RegExp('\\s' + type + ']');
+      return reg.test(
+        Object.prototype.toString.call(target)
+      );
   }
   var $ = function(selector) {
       var eles = document.querySelectorAll(selector);
@@ -61,7 +64,6 @@
         return;
       };
       this.curPan = 'log-console'; // 当前面板
-      this.eleStyle = {}; // console
       this.inputLog = []; // 前几次的try it out 输入
       this.xhrDetail = {}; // xhr详情存储
       this.staticSource = {} // 存储静态资源
@@ -83,7 +85,7 @@
             <div class="log-pannal-btn-par">\
               <ul class="log-pannal-btn clearfix">\
                 <li id="log-console" class="fff-b"><a href="javascript:;">Console</a></li>\
-                <li id="log-style"><a href="javascript:;">Style</a></li>\
+                <li id="log-element"><a href="javascript:;">Element</a></li>\
                 <li id="log-cookie"><a href="javascript:;">Cookie</a></li>\
                 <li id="log-storage"><a href="javascript:;">Storage</a></li>\
                 <li id="log-xhr"><a href="javascript:;">Xhr</a></li>\
@@ -94,7 +96,7 @@
             </div>\
             <ul class="log-pannal-log">\
               <li id="log-console-pan"></li>\
-              <li id="log-style-pan"></li>\
+              <li id="log-element-pan"></li>\
               <li id="log-cookie-pan" class="hide"></li>\
               <li id="log-storage-pan" class="hide"></li>\
               <li id="log-xhr-pan" class="hide"></li>\
@@ -109,14 +111,23 @@
               <li class="p-0 w-80" data-type="log-console">\
                 <input id="log-try-input" class="try-input" type="text" placeholder="  Use console.log() to output" value="">\
               </li>\
-              <li id="log-style-enter" class="hide" data-type="log-style">\
-                <a href="javascript:;">Enter</a>\
+              <li id="log-element-select" class="hide" data-type="log-element">\
+                <a class="log-select" href="javascript:;"></a>\
               </li>\
-              <li id="log-style-leave" class="hide" data-type="log-style">\
-                <a href="javascript:;">Leave</a>\
+              <li id="log-prop-select" class="choose-type hide" data-choosetype="prop" data-type="log-element">\
+                <a href="javascript:;">Prop</a>\
               </li>\
-              <li id="log-style-detail" class="hide" data-type="log-style">\
-                <a href="javascript:;">Detail</a>\
+              <li id="log-style-select" class="choose-type hide" data-choosetype="style" data-type="log-element">\
+                <a href="javascript:;">Style</a>\
+              </li>\
+              <li id="log-class-select" class="choose-type hide" data-choosetype="class" data-type="log-element">\
+                <a href="javascript:;">Class</a>\
+              </li>\
+              <li id="log-attr-select" class="choose-type hide" data-choosetype="attr" data-type="log-element">\
+                <a href="javascript:;">Attr</a>\
+              </li>\
+              <li id="log-dataset-select" class="choose-type hide" data-choosetype="dataset" data-type="log-element">\
+                <a href="javascript:;">Dataset</a>\
               </li>\
               <li id="log-storage-local" class="hide" data-type="log-storage">\
                 <a href="javascript:;">local</a>\
@@ -143,7 +154,7 @@
         var container = $('#log-container');
         var style = document.createElement('style');
         style.setAttribute('scoped',true);
-        style.textContent = ".log-container .fff-b{  background: #fff!important}.log-container table td,.log-container table th{  border-bottom: 1px solid #CCC}.log-container .w-80{  width: 80%!important}.log-container .w-20-p{  width: calc(20% - 12px)!important}.log-container .p-0{  padding: 0!important}.log-container .w-all{  width: 100%}.log-container .log-algin-center{  position: absolute;  left: 0;  top: 0;  right: 0;  bottom: 0;  margin: auto}.log-container .clearfix:after{  display: block;  content: '';  clear: both;  width: 0;  height: 0;}.log-container .pos-r{  position: relative;}.log-container .pos-a{  position: absolute;}.log-container .c-red{  color: red!important}.log-container .c-orange{  color: orange!important}.log-container .c-green{  color: green!important}.log-container .c-blue{  color: blue!important}.log-container.hide,.log-container .hide{  display: none;}.log-action{  outline: 1px solid #FF9800!important;  background:rgba(255, 152, 0, 0.18)!important;}.log-container *{  margin: 0;  padding: 0;  font-size: 13px;  text-align: initial;  background: initial;  box-sizing: content-box;  border: initial;}.log-container table td,.log-container table th{  border-right: 1px solid #CCC}.log-container .log-pannal{  z-index: 9999998;  position: fixed;  transition: all 0.2s linear 0s;  -webkit-transition: all 0.2s linear 0s;  bottom: 0;  left: 0;  height: 40%;  min-height: 270px;  background: #fff;  width: 100%;}.log-container .log-pannal.height-0{  min-height: 0;  height: 0}.log-container ul,.log-container li{  list-style: none}.log-container .text-hide{  white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;}.log-container a,.log-container a:hover,.log-container a:target,.log-container a:visited,.log-container a:link{  text-decoration: none;  -webkit-tap-highlight-color: rgba(0,0,0,0);  tap-highlight-color: rgba(0,0,0,0);　-webkit-tap-highlight-color: transparent;  tap-highlight-color: transparent;  color:#333;}.log-container .log-pannal .log-pannal-btn,.log-container .log-pannal .log-pannal-bottom{  overflow: auto;  width: 100%;  height: 40px;  background: #F3F3F3;  border-top:1px solid #CCC;  border-bottom:1px solid #CCC;}.log-container .log-pannal .log-pannal-btn>li,.log-container .log-pannal .log-pannal-bottom>li{  float: left;  height: 100%;  line-height: 40px;  text-align: center;  padding: 0 5px;  border-right: 1px solid #CCC;  background: #F3F3F3;}.log-container .log-pannal-btn-par{  width: 100%;  overflow: auto;}.log-container .log-pannal-btn-par::scrollbar {    display: none;}.log-container .log-pannal-btn-par::-webkit-scrollbar {    display: none;}.log-container .log-pannal .log-pannal-btn{  width: 150%;  min-width: 100%;}.log-container .log-pannal .log-pannal-log{  overflow: hidden;  width: 100%;  height: calc(100% - 82px);}.log-container .log-pannal .log-detail{  overflow: auto;  /*word-wrap: break-word;*/  width: 100%;  height: 100%;  border-top: 1px solid #CCC;  background: #fff}.log-container .log-detail-close{  position: absolute;  top: 10px;  right: 10px;  line-height: 30px;  height: 30px;  font-size: 30px;  cursor:pointer}.log-container .log-pannal .log-pannal-log>li{  width: 100%;  height: 100%;  word-wrap: break-word;  overflow: auto;}.log-container .log-pannal .log-pannal-log>li#log-console-pan>p{  border-bottom: 1px solid #CCC;  line-height: 22px;  word-wrap: break-word;  overflow: auto;}.log-container .log-pannal-bottom>li .try-input{  width: calc(100vw - 45px);  height: 100%;  border:none;}.log-container .log-pannal-bottom>li>a:active{  color: #fff!important;}.log-container .log-switch{  -webkit-user-select:none;  user-select:none;  position: fixed;  display: block;  z-index: 9999999;  border-radius:10% 50% 10% 50%;  left: 80%;  top: 85%;  min-width: 40px;  width: 45px;  height: 45px;  line-height: 45px;  font-weight: bold;  background: rgb(253,228,143);  background: -webkit-linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));  background: linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));  box-shadow: #333 5px 5px 33px -5px;  text-align: center;}.log-container .log-switch.active{  background: rgb(176, 233, 108)!important;  box-shadow: rgb(145, 215, 63) 5px 5px 33px -5px;}";
+        style.textContent = ".log-container .fff-b{  background: #fff!important}.log-container table td,.log-container table th{  border-bottom: 1px solid #CCC}.log-container .w-80{  width: 80%!important}.log-container .w-20-p{  width: calc(20% - 12px)!important}.log-container .p-0{  padding: 0!important}.log-container .w-all{  width: 100%}.log-container .log-select{  display: block;  width: 40px;  height: 40px;  background: url(http://i2.letvimg.com/lc06_lecloud/201706/01/15/13/select.png) no-repeat 10px 10px;  background-size: 20px 20px;}.log-container .log-select.active{  background: url(http://i1.letvimg.com/lc03_lecloud/201706/01/15/13/select-active.png) no-repeat 10px 10px;  background-size: 20px 20px;}.log-container .log-algin-center{  position: absolute;  left: 0;  top: 0;  right: 0;  bottom: 0;  margin: auto}.log-container .clearfix:after{  display: block;  content: '';  clear: both;  width: 0;  height: 0;}.log-container .pos-r{  position: relative;}.log-container .pos-a{  position: absolute;}.log-container .c-red{  color: red!important}.log-container .c-orange{  color: orange!important}.log-container .c-green{  color: green!important}.log-container .c-blue{  color: blue!important}.log-container.hide,.log-container .hide{  display: none;}.log-action{  outline: 1px solid #FF9800!important;}.log-container *{  margin: 0;  padding: 0;  font-size: 13px;  text-align: initial;  background: initial;  box-sizing: content-box;  border: initial;  -webkit-tap-highlight-color: rgba(0,0,0,0);  tap-highlight-color: rgba(0,0,0,0);　-webkit-tap-highlight-color: transparent;  tap-highlight-color: transparent;}.log-container table td,.log-container table th{  border-right: 1px solid #CCC}.log-container .log-pannal{  z-index: 9999998;  position: fixed;  transition: all 0.2s linear 0s;  -webkit-transition: all 0.2s linear 0s;  bottom: 0;  left: 0;  height: 40%;  min-height: 270px;  background: #fff;  width: 100%;}.log-container .log-pannal.height-0{  min-height: 0;  height: 0}.log-container ul,.log-container li{  list-style: none}.log-container .text-hide{  white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;}.log-container a,.log-container a:hover,.log-container a:target,.log-container a:visited,.log-container a:link{  text-decoration: none;  color:#333;}.log-container .log-pannal .log-pannal-btn,.log-container .log-pannal .log-pannal-bottom{  overflow: auto;  width: 100%;  height: 40px;  background: #F3F3F3;  border-top:1px solid #CCC;  border-bottom:1px solid #CCC;}.log-container .log-pannal .log-pannal-btn>li,.log-container .log-pannal .log-pannal-bottom>li{  float: left;  height: 100%;  line-height: 40px;  text-align: center;  padding: 0 5px;  border-right: 1px solid #CCC;  background: #F3F3F3;}.log-container .log-pannal-btn-par{  width: 100%;  overflow: auto;}.log-container .log-pannal-btn-par::scrollbar {    display: none;}.log-container .log-pannal-btn-par::-webkit-scrollbar {    display: none;}.log-container .log-pannal .log-pannal-btn{  width: 150%;  min-width: 100%;}.log-container .log-pannal .log-pannal-log{  overflow: hidden;  width: 100%;  height: calc(100% - 82px);}.log-container .log-pannal .log-detail{  overflow: auto;  /*word-wrap: break-word;*/  width: 100%;  height: 100%;  border-top: 1px solid #CCC;  background: #fff}.log-container .log-detail-close{  position: absolute;  top: 10px;  right: 10px;  line-height: 30px;  height: 30px;  font-size: 30px;  cursor:pointer}.log-container .log-pannal .log-pannal-log>li{  width: 100%;  height: 100%;  word-wrap: break-word;  overflow: auto;}.log-container .log-pannal .log-pannal-log>li#log-console-pan>p{  border-bottom: 1px solid #CCC;  line-height: 22px;  word-wrap: break-word;  overflow: auto;}.log-container .log-pannal-bottom>li .try-input{  width: calc(100vw - 45px);  height: 100%;  border:none;}.log-container .log-pannal-bottom>li>a:active{  color: #fff!important;}.log-container .log-switch{  -webkit-user-select:none;  user-select:none;  position: fixed;  display: block;  z-index: 9999999;  border-radius:10% 50% 10% 50%;  left: 80%;  top: 85%;  min-width: 40px;  width: 45px;  height: 45px;  line-height: 45px;  font-weight: bold;  background: rgb(253,228,143);  background: -webkit-linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));  background: linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));  box-shadow: #333 5px 5px 33px -5px;  text-align: center;}.log-container .log-switch.active{  background: rgb(176, 233, 108)!important;  box-shadow: rgb(145, 215, 63) 5px 5px 33px -5px;}";
         container.insertBefore(style, container.firstElementChild);
       },
       // 绑定事件
@@ -164,7 +175,7 @@
       },
       // 表格开始字符串
       tableBegin: function(keyName, valName, keyWidth, valWidth) {
-          return '<table class="w-all">\
+          return '<table cellspacing="0" cellpadding="0" class="w-all">\
                   <col width="' + keyWidth + '%">\
                   <col width="' + valWidth + '%">\
                   <thead>\
@@ -332,7 +343,7 @@
                       // 取几个常用的
                       ['responseURL', 'responseType', 'timeout', 'withCredentials']
                       .forEach(function(prop) {
-                          xhr.__lemon_data__[prop] = testType(xhr[prop], 'undefined') ? '' : xhr[prop];
+                          xhr.__lemon_data__[prop] = testType(xhr[prop], 'Undefined') ? '' : xhr[prop];
                       })
                       // 单独处理responseText:如果返回为blob时 该属性获取会报错
                       try{
@@ -423,13 +434,14 @@
       // 获取样式
       getStyleListener: function() {
           var that = this;
-          var canTouch = false; // 是否可触摸，已经是进入状态 不可触摸
           var curEle = null; // 当前查看的元素
           var toast = true; // 提示
-          $('#log-style-pan').innerHTML = that.tableBegin('prop','value', 40, 60) + that.tableEnd();
+          var styleDetailContent = {} // 保存样式详情
+          var TYPE = 'prop'; // 当前类型
+          $('#log-element-pan').innerHTML = that.tableBegin('prop','value', 40, 60) + that.tableEnd();
+          // 元素选择
           function event(e) {
               var t = e.target;
-              var flag = false;
               do { // 不可点选控制台
                   if (t.id === 'log-container') return;
               } while (t = t.parentNode);
@@ -438,41 +450,130 @@
                 curEle ? curEle.classList.remove('log-action') : null;
                 curEle = e.target;
               }
-
-              var style = getComputedStyle(e.target);
-              that.eleStyle = style;
-              var str = '<tr><td>tagName</tb><td>' + e.target.tagName.toLowerCase() + '</td></tr>';
-              ['width', 'height', 'paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight', 'marginTop', 'marginBottom', 'marginLeft', 'marginRight', 'display', 'opacity', 'zIndex', 'position', 'top', 'bottom', 'left', 'right', 'float', 'font-size', 'font-weight', 'border', 'lineHeight', 'overflow']
-              .forEach(function(prop) {
-                  str += '<tr><td>' + prop + '</tb><td>' + style[prop] + '</td></tr>';
-              })
-              $('#log-style-pan tbody').innerHTML = str
+              handleContent();
           }
-          on($('#log-style-enter'), 'touchend', function() {
-              if (canTouch) return;
-              canTouch = true;
-              if(toast){
-                alert('Touch elements to watch computedStyle');
-                toast = false;
+          // 处理内容
+          function handleContent() {
+              if(!curEle)return;
+              var str = '';
+              switch(TYPE){
+                case 'prop': // 元素属性
+                    var boxModel = ['scrollTop','scrollLeft','scrollHeight','scrollWidth','clientTop','clientLeft','clientWidth','clientHeight','offsetTop','offsetLeft','offsetHeight','offsetWidth','offsetParent'];
+                    var relationship = ['firstChild','firstElementChild','lastChild','lastElementChild','nextSibling','nextElementSibling','previousSibling','previousElementSibling','parentNode','parentElement'];
+                    boxModel.forEach(function(model){
+                        str += '<tr><td>' + model + '</tb><td>' + curEle[model] + '</td></tr>';
+                    })
+                    relationship.forEach(function(model){
+                        var e = curEle[model];
+                        var t = 'unknown';
+                        if(testType(e,'Undefined')){
+                            t = 'undefined'
+                        }else if(testType(e,'Null')){
+                            t = 'null';
+                        }else if(e.nodeName || t.tagName){
+                            t = t.tagName || e.nodeName
+                        }
+                        str += '<tr><td>' + model + '</tb><td>' + t + '</td></tr>';
+                    })
+                    str += '<tr id="log-prop-detail"><td><strong>show all of style...</strong></tb><td>...</td></tr>';
+                    break;
+                case 'style': // 获取样式
+                    var style = getComputedStyle(curEle);
+                    styleDetailContent = style;
+                    str += '<tr><td>tagName</tb><td>' + curEle.tagName.toLowerCase() + '</td></tr>';
+                    ['width', 'height', 'paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight', 'marginTop', 'marginBottom', 'marginLeft', 'marginRight', 'display', 'opacity', 'zIndex', 'position', 'top', 'bottom', 'left', 'right', 'float', 'font-size', 'font-weight', 'border', 'lineHeight', 'overflow']
+                    .forEach(function(prop) {
+                        str += '<tr><td>' + prop + '</tb><td>' + style[prop] + '</td></tr>';
+                    })
+                    str += '<tr id="log-style-detail"><td><strong>show all of style...</strong></tb><td>...</td></tr>';
+                    break;
+                case 'class': // className
+                    var classes = curEle.classList;
+                    for(var c=0;c<classes.length;c++){
+                        str += '<tr><td>'+ c +'</tb><td>' + (classes[c] == 'log-action' ? 'log-action(class of lemon)' : classes[c]) + '</td></tr>';
+                    }
+                    str += '<tr><td>length</tb><td>' + classes.length + '</td></tr>';
+                    break;
+                case 'attr': // 属性
+                    var attrs = curEle.attributes;
+                    for(var i=0;i<attrs.length;i++){
+                        str += '<tr><td>'+ attrs[i].name +'</tb><td><pre>' + attrs[i].value + '</pre></td></tr>';
+                    }
+                    break;
+                case 'dataset': // dataset
+                    var datasets = curEle.dataset;
+                    for(var data in datasets){
+                        str += '<tr><td>'+ data +'</tb><td><pre>' + datasets[data] + '</pre></td></tr>';
+                    }
+                    break;
               }
-              on(document.documentElement || document.body, 'touchend', event)
-          })
-          on($('#log-style-leave'), 'touchend', function() {
-              off(document.documentElement || document.body, 'touchend', event);
-              curEle ? curEle.classList.remove('log-action') : null;
-              canTouch = false;
-          })
-          on($('#log-style-detail'), 'touchend', function() {
+              $('#log-element-pan tbody').innerHTML = str;
+              if(TYPE === 'prop'){ // 绑定prop详情事件
+                propDetail();                  
+              }else if(TYPE === 'style'){ // 绑定style详情事件
+                styleDetail();                  
+              }
+          }
+          // prop详情
+          function propDetail() {
+            on($('#log-container #log-prop-detail'), 'touchend', function() {
               var str = that.tableBegin('prop', 'value', 40, 60);
-              for (var prop in that.eleStyle) {
-                  if (that.eleStyle.hasOwnProperty(prop) && isNaN(prop * 1) && prop !== 'cssText') {
-                      str += '<tr><td>' + prop + '</tb><td>' + that.eleStyle[prop] + '</td></tr>';
+              for (var prop in curEle) { // 仅展示字符串和数字类型的属性
+                  if(prop.toUpperCase() == prop)continue; // 不显示系统常量 TODO:私有属性问题
+                  var val = curEle[prop]
+                  if (testType(val,'String')) {
+                      if(val.length>300){ // 限制300,防止过长
+                        val = val.substr(0,300) + '...';
+                      }
+                      str += '<tr><td>' + prop + '</tb><td>' + val.replace(/</g,'&lt;') + '</td></tr>';  
+                  }else if(testType(val,'Number')){
+                      str += '<tr><td>' + prop + '</tb><td>' + val + '</td></tr>';
                   }
               }
               str += that.tableEnd();
               $('#log-container .log-detail').innerHTML = str;
               $('#log-container .log-detail').classList.remove('hide');
               $('#log-container .log-detail-close').classList.remove('hide');
+           })
+          }
+          // 样式详情
+          function styleDetail() {
+            on($('#log-container #log-style-detail'), 'touchend', function() {
+              var str = that.tableBegin('prop', 'value', 40, 60);
+              for (var prop in styleDetailContent) {
+                  if (styleDetailContent.hasOwnProperty(prop) && isNaN(prop * 1) && prop !== 'cssText') {
+                      str += '<tr><td>' + prop + '</tb><td>' + styleDetailContent[prop] + '</td></tr>';
+                  }
+              }
+              str += that.tableEnd();
+              $('#log-container .log-detail').innerHTML = str;
+              $('#log-container .log-detail').classList.remove('hide');
+              $('#log-container .log-detail-close').classList.remove('hide');
+           })
+          }
+          // 切换类型
+          on($('.log-pannal-bottom .choose-type'), 'touchend', function(){
+              var canChoose = $('#log-element-select').firstElementChild.classList.contains('active');
+              if(!canChoose)return; // 没有选中：元素选择按钮
+              TYPE = this.dataset.choosetype;
+              handleContent()
+          })
+          // 控制选择元素开关
+          on($('#log-element-select'), 'touchend', function() {
+              if(toast){
+                alert('Touch elements to view props');
+                toast = false;
+              }
+              if(this.firstElementChild.classList.contains('active')){ // 取消
+                $('#log-element-pan').innerHTML = that.tableBegin('prop','value', 40, 60) + that.tableEnd();
+                this.firstElementChild.classList.remove('active');
+                off(document.documentElement || document.body, 'touchend', event);
+                curEle ? curEle.classList.remove('log-action') : null;
+                curEle = null;
+              }else{ // 操作
+                this.firstElementChild.classList.add('active');
+                on(document.documentElement || document.body, 'touchend', event)
+              }
           })
       },
       // 获取cookie
