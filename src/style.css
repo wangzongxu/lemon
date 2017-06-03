@@ -96,7 +96,7 @@
   background: #fff;
   width: 100%;
 }
-.log-container .log-pannal.height-0{
+.log-container .height-0{
   min-height: 0;
   height: 0
 }
@@ -115,7 +115,6 @@
 }
 .log-container .log-pannal .log-pannal-btn,
 .log-container .log-pannal .log-pannal-bottom{
-  overflow: auto;
   width: 100%;
   height: 40px;
   background: #F3F3F3;
@@ -181,7 +180,7 @@
   overflow: auto;
 }
 .log-container .log-pannal-bottom>li .try-input{
-  width: calc(100vw - 45px);
+  width: 100%;
   height: 100%;
   border:none;
 }
@@ -212,3 +211,28 @@
   background: rgb(176, 233, 108)!important;
   box-shadow: rgb(145, 215, 63) 5px 5px 33px -5px;
 }
+/*快捷输入 /s*/
+.log-tip-box{
+  width:100%;
+  top: -100%;
+  left:0;
+  height: 40px;
+  opacity: 0.7;
+  overflow: auto
+}
+.log-tip-box ul{
+  border-left: 1px solid #CCC;
+  border-top: 1px solid #CCC;
+  height: 100%;
+  /*width is computed*/
+}
+.log-tip-box ul>li{
+  padding: 0 10px;
+  float: left;
+  background: #F3F3F3;
+  border-right: 1px solid #CCC
+}
+.log-tip-box ul>li>a:active{
+  color: #ffffff;
+}
+/*快捷输入 /e*/

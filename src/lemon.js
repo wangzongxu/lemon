@@ -108,7 +108,21 @@
               <li id="log-clear" class="w-20-p" data-type="log-console">\
                 <a href="javascript:;">Clear</a>\
               </li>\
-              <li class="p-0 w-80" data-type="log-console">\
+              <li class="p-0 w-80 pos-r" data-type="log-console">\
+                <div class="log-tip-box pos-a height-0">\
+                  <ul class="clearfix">\
+                    <li><a href="javascript:;">log</a></li>\
+                    <li><a href="javascript:;">{}</a></li>\
+                    <li><a href="javascript:;">[]</a></li>\
+                    <li><a href="javascript:;">()</a></li>\
+                    <li><a href="javascript:;">;</a></li>\
+                    <li><a href="javascript:;">,</a></li>\
+                    <li><a href="javascript:;">$</a></li>\
+                    <li><a href="javascript:;">var</a></li>\
+                    <li><a href="javascript:;">if</a></li>\
+                    <li><a href="javascript:;">for</a></li>\
+                  </ul>\
+                </div>\
                 <input id="log-try-input" class="try-input" type="text" placeholder="  Use console.log() to output" value="">\
               </li>\
               <li id="log-element-select" class="hide" data-type="log-element">\
@@ -172,6 +186,7 @@
           this.togglePannal(); // 隐藏或显示控制台
           this.detailClose(); // 关闭详情面板
           this.tryItOut(); // 输出js功能
+          this.tryItOutTip(); // 输出提示
       },
       // 表格开始字符串
       tableBegin: function(keyName, valName, keyWidth, valWidth) {
@@ -289,9 +304,10 @@
           if (data.log instanceof Error) { // 捕获错误
               el.innerHTML = data.log.name + ' : ' + data.log.message;
           } else { // 是否对象
-              el.innerHTML = typeof data.log == 'object' ?
-                  '<pre><code>' + JSON.stringify(data.log, false, 2) + '</code></pre>' :
-                  '<pre><code>' + data.log + '</code></pre>';
+              if(testType(data.log, 'Array') || testType(data.log, 'Object')){
+                  data.log = JSON.stringify(data.log, false, 2);
+              }
+              el.innerHTML = '<pre><code>' + data.log + '</code></pre>';
           }
           el.className = className;
           $('#log-console-pan').appendChild(el);
@@ -475,7 +491,7 @@
                         }
                         str += '<tr><td>' + model + '</tb><td>' + t + '</td></tr>';
                     })
-                    str += '<tr id="log-prop-detail"><td><strong>show all of style...</strong></tb><td>...</td></tr>';
+                    str += '<tr id="log-prop-detail"><td><strong>show all of prop...</strong></tb><td>...</td></tr>';
                     break;
                 case 'style': // 获取样式
                     var style = getComputedStyle(curEle);
@@ -519,7 +535,7 @@
             on($('#log-container #log-prop-detail'), 'touchend', function() {
               var str = that.tableBegin('prop', 'value', 40, 60);
               for (var prop in curEle) { // 仅展示字符串和数字类型的属性
-                  if(prop.toUpperCase() == prop)continue; // 不显示系统常量 TODO:私有属性问题
+                  if(prop.toUpperCase() == prop)continue; // 不显示系统常量 TODO:私有属性问题：只有自定义属性属于私有
                   var val = curEle[prop]
                   if (testType(val,'String')) {
                       if(val.length>300){ // 限制300,防止过长
@@ -785,6 +801,57 @@
                   e.target.value = '';
               }
           })
+      },
+      // 输入提示
+      tryItOutTip: function() {
+        var that = this;
+        var centerBox = $('.log-container .log-tip-box>ul');
+        var tips = $('.log-container .log-tip-box>ul>li');
+
+        // 计算提示盒子栏长度元素opacity为0时元素宽度是auto
+        var total = [].reduce.call(tips, function(cur, next) {
+            return cur + parseFloat(getComputedStyle(next).width) + 21;
+        }, 1);
+        centerBox.style.width = total + 'px';
+
+        var tryItOut = $('#log-try-input');
+        var tipBox = $('#log-container .log-tip-box');
+        var eventPar = tryItOut.parentNode;
+        var flag = false;
+        var tipMap = {
+            'log':'console.log()',
+            '{}':'{}',
+            '[]':'[]',
+            '()':'()',
+            ';':';',
+            '$':'document.querySelectorAll()',
+            ',':',',
+            'var':'var ',
+            'if':'if( ){ }else{ }',
+            'for':'for(var i=0; i<arr.length; i++){ }',
+        };
+
+        on(tryItOut, 'focus', function(){
+            tipBox.classList.remove('height-0');
+        })
+        on(tryItOut, 'blur', function(){
+            tipBox.classList.add('height-0')
+        })
+
+        on(eventPar, 'touchend', function(e){
+            var key = '';
+            if(e.target.tagName == 'LI'){
+                key = e.target.firstElementChild.innerHTML;
+            }else if(e.target.tagName == 'A'){
+                key = e.target.innerHTML;
+            }else{
+                return
+            }
+            tryItOut.value += tipMap[key];
+            setTimeout(function(){//事件顺序：先触发结束再触发失去焦点；这里是防止选择提示后，输入框失去焦点
+                tryItOut.focus();
+            })
+        })
       }
   }
   try{

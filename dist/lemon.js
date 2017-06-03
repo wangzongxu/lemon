@@ -108,7 +108,21 @@
               <li id="log-clear" class="w-20-p" data-type="log-console">\
                 <a href="javascript:;">Clear</a>\
               </li>\
-              <li class="p-0 w-80" data-type="log-console">\
+              <li class="p-0 w-80 pos-r" data-type="log-console">\
+                <div class="log-tip-box pos-a height-0">\
+                  <ul class="clearfix">\
+                    <li><a href="javascript:;">log</a></li>\
+                    <li><a href="javascript:;">{}</a></li>\
+                    <li><a href="javascript:;">[]</a></li>\
+                    <li><a href="javascript:;">()</a></li>\
+                    <li><a href="javascript:;">;</a></li>\
+                    <li><a href="javascript:;">,</a></li>\
+                    <li><a href="javascript:;">$</a></li>\
+                    <li><a href="javascript:;">var</a></li>\
+                    <li><a href="javascript:;">if</a></li>\
+                    <li><a href="javascript:;">for</a></li>\
+                  </ul>\
+                </div>\
                 <input id="log-try-input" class="try-input" type="text" placeholder="  Use console.log() to output" value="">\
               </li>\
               <li id="log-element-select" class="hide" data-type="log-element">\
@@ -154,7 +168,7 @@
         var container = $('#log-container');
         var style = document.createElement('style');
         style.setAttribute('scoped',true);
-        style.textContent = ".log-container .fff-b{  background: #fff!important}.log-container table td,.log-container table th{  border-bottom: 1px solid #CCC}.log-container .w-80{  width: 80%!important}.log-container .w-20-p{  width: calc(20% - 12px)!important}.log-container .p-0{  padding: 0!important}.log-container .w-all{  width: 100%}.log-container .log-select{  display: block;  width: 40px;  height: 40px;  background: url(http://i2.letvimg.com/lc06_lecloud/201706/01/15/13/select.png) no-repeat 10px 10px;  background-size: 20px 20px;}.log-container .log-select.active{  background: url(http://i1.letvimg.com/lc03_lecloud/201706/01/15/13/select-active.png) no-repeat 10px 10px;  background-size: 20px 20px;}.log-container .log-algin-center{  position: absolute;  left: 0;  top: 0;  right: 0;  bottom: 0;  margin: auto}.log-container .clearfix:after{  display: block;  content: '';  clear: both;  width: 0;  height: 0;}.log-container .pos-r{  position: relative;}.log-container .pos-a{  position: absolute;}.log-container .c-red{  color: red!important}.log-container .c-orange{  color: orange!important}.log-container .c-green{  color: green!important}.log-container .c-blue{  color: blue!important}.log-container.hide,.log-container .hide{  display: none;}.log-action{  outline: 1px solid #FF9800!important;}.log-container *{  margin: 0;  padding: 0;  font-size: 13px;  text-align: initial;  background: initial;  box-sizing: content-box;  border: initial;  -webkit-tap-highlight-color: rgba(0,0,0,0);  tap-highlight-color: rgba(0,0,0,0);　-webkit-tap-highlight-color: transparent;  tap-highlight-color: transparent;}.log-container table td,.log-container table th{  border-right: 1px solid #CCC}.log-container .log-pannal{  z-index: 9999998;  position: fixed;  transition: all 0.2s linear 0s;  -webkit-transition: all 0.2s linear 0s;  bottom: 0;  left: 0;  height: 40%;  min-height: 270px;  background: #fff;  width: 100%;}.log-container .log-pannal.height-0{  min-height: 0;  height: 0}.log-container ul,.log-container li{  list-style: none}.log-container .text-hide{  white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;}.log-container a,.log-container a:hover,.log-container a:target,.log-container a:visited,.log-container a:link{  text-decoration: none;  color:#333;}.log-container .log-pannal .log-pannal-btn,.log-container .log-pannal .log-pannal-bottom{  overflow: auto;  width: 100%;  height: 40px;  background: #F3F3F3;  border-top:1px solid #CCC;  border-bottom:1px solid #CCC;}.log-container .log-pannal .log-pannal-btn>li,.log-container .log-pannal .log-pannal-bottom>li{  float: left;  height: 100%;  line-height: 40px;  text-align: center;  padding: 0 5px;  border-right: 1px solid #CCC;  background: #F3F3F3;}.log-container .log-pannal-btn-par{  width: 100%;  overflow: auto;}.log-container .log-pannal-btn-par::scrollbar {    display: none;}.log-container .log-pannal-btn-par::-webkit-scrollbar {    display: none;}.log-container .log-pannal .log-pannal-btn{  width: 150%;  min-width: 100%;}.log-container .log-pannal .log-pannal-log{  overflow: hidden;  width: 100%;  height: calc(100% - 82px);}.log-container .log-pannal .log-detail{  overflow: auto;  /*word-wrap: break-word;*/  width: 100%;  height: 100%;  border-top: 1px solid #CCC;  background: #fff}.log-container .log-detail-close{  position: absolute;  top: 10px;  right: 10px;  line-height: 30px;  height: 30px;  font-size: 30px;  cursor:pointer}.log-container .log-pannal .log-pannal-log>li{  width: 100%;  height: 100%;  word-wrap: break-word;  overflow: auto;}.log-container .log-pannal .log-pannal-log>li#log-console-pan>p{  border-bottom: 1px solid #CCC;  line-height: 22px;  word-wrap: break-word;  overflow: auto;}.log-container .log-pannal-bottom>li .try-input{  width: calc(100vw - 45px);  height: 100%;  border:none;}.log-container .log-pannal-bottom>li>a:active{  color: #fff!important;}.log-container .log-switch{  -webkit-user-select:none;  user-select:none;  position: fixed;  display: block;  z-index: 9999999;  border-radius:10% 50% 10% 50%;  left: 80%;  top: 85%;  min-width: 40px;  width: 45px;  height: 45px;  line-height: 45px;  font-weight: bold;  background: rgb(253,228,143);  background: -webkit-linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));  background: linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));  box-shadow: #333 5px 5px 33px -5px;  text-align: center;}.log-container .log-switch.active{  background: rgb(176, 233, 108)!important;  box-shadow: rgb(145, 215, 63) 5px 5px 33px -5px;}";
+        style.textContent = ".log-container .fff-b{  background: #fff!important}.log-container table td,.log-container table th{  border-bottom: 1px solid #CCC}.log-container .w-80{  width: 80%!important}.log-container .w-20-p{  width: calc(20% - 12px)!important}.log-container .p-0{  padding: 0!important}.log-container .w-all{  width: 100%}.log-container .log-select{  display: block;  width: 40px;  height: 40px;  background: url(http://i2.letvimg.com/lc06_lecloud/201706/01/15/13/select.png) no-repeat 10px 10px;  background-size: 20px 20px;}.log-container .log-select.active{  background: url(http://i1.letvimg.com/lc03_lecloud/201706/01/15/13/select-active.png) no-repeat 10px 10px;  background-size: 20px 20px;}.log-container .log-algin-center{  position: absolute;  left: 0;  top: 0;  right: 0;  bottom: 0;  margin: auto}.log-container .clearfix:after{  display: block;  content: '';  clear: both;  width: 0;  height: 0;}.log-container .pos-r{  position: relative;}.log-container .pos-a{  position: absolute;}.log-container .c-red{  color: red!important}.log-container .c-orange{  color: orange!important}.log-container .c-green{  color: green!important}.log-container .c-blue{  color: blue!important}.log-container.hide,.log-container .hide{  display: none;}.log-action{  outline: 1px solid #FF9800!important;}.log-container *{  margin: 0;  padding: 0;  font-size: 13px;  text-align: initial;  background: initial;  box-sizing: content-box;  border: initial;  -webkit-tap-highlight-color: rgba(0,0,0,0);  tap-highlight-color: rgba(0,0,0,0);　-webkit-tap-highlight-color: transparent;  tap-highlight-color: transparent;}.log-container table td,.log-container table th{  border-right: 1px solid #CCC}.log-container .log-pannal{  z-index: 9999998;  position: fixed;  transition: all 0.2s linear 0s;  -webkit-transition: all 0.2s linear 0s;  bottom: 0;  left: 0;  height: 40%;  min-height: 270px;  background: #fff;  width: 100%;}.log-container .height-0{  min-height: 0;  height: 0}.log-container ul,.log-container li{  list-style: none}.log-container .text-hide{  white-space: nowrap;  overflow: hidden;  text-overflow: ellipsis;}.log-container a,.log-container a:hover,.log-container a:target,.log-container a:visited,.log-container a:link{  text-decoration: none;  color:#333;}.log-container .log-pannal .log-pannal-btn,.log-container .log-pannal .log-pannal-bottom{  width: 100%;  height: 40px;  background: #F3F3F3;  border-top:1px solid #CCC;  border-bottom:1px solid #CCC;}.log-container .log-pannal .log-pannal-btn>li,.log-container .log-pannal .log-pannal-bottom>li{  float: left;  height: 100%;  line-height: 40px;  text-align: center;  padding: 0 5px;  border-right: 1px solid #CCC;  background: #F3F3F3;}.log-container .log-pannal-btn-par{  width: 100%;  overflow: auto;}.log-container .log-pannal-btn-par::scrollbar {    display: none;}.log-container .log-pannal-btn-par::-webkit-scrollbar {    display: none;}.log-container .log-pannal .log-pannal-btn{  width: 150%;  min-width: 100%;}.log-container .log-pannal .log-pannal-log{  overflow: hidden;  width: 100%;  height: calc(100% - 82px);}.log-container .log-pannal .log-detail{  overflow: auto;  /*word-wrap: break-word;*/  width: 100%;  height: 100%;  border-top: 1px solid #CCC;  background: #fff}.log-container .log-detail-close{  position: absolute;  top: 10px;  right: 10px;  line-height: 30px;  height: 30px;  font-size: 30px;  cursor:pointer}.log-container .log-pannal .log-pannal-log>li{  width: 100%;  height: 100%;  word-wrap: break-word;  overflow: auto;}.log-container .log-pannal .log-pannal-log>li#log-console-pan>p{  border-bottom: 1px solid #CCC;  line-height: 22px;  word-wrap: break-word;  overflow: auto;}.log-container .log-pannal-bottom>li .try-input{  width: 100%;  height: 100%;  border:none;}.log-container .log-pannal-bottom>li>a:active{  color: #fff!important;}.log-container .log-switch{  -webkit-user-select:none;  user-select:none;  position: fixed;  display: block;  z-index: 9999999;  border-radius:10% 50% 10% 50%;  left: 80%;  top: 85%;  min-width: 40px;  width: 45px;  height: 45px;  line-height: 45px;  font-weight: bold;  background: rgb(253,228,143);  background: -webkit-linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));  background: linear-gradient(left top,rgb(253,228,143),rgb(246,193,52));  box-shadow: #333 5px 5px 33px -5px;  text-align: center;}.log-container .log-switch.active{  background: rgb(176, 233, 108)!important;  box-shadow: rgb(145, 215, 63) 5px 5px 33px -5px;}/*快捷输入 /s*/.log-tip-box{  width:100%;  top: -100%;  left:0;  height: 40px;  opacity: 0.7;  overflow: auto}.log-tip-box ul{  border-left: 1px solid #CCC;  border-top: 1px solid #CCC;  height: 100%;  /*width is computed*/}.log-tip-box ul>li{  padding: 0 10px;  float: left;  background: #F3F3F3;  border-right: 1px solid #CCC}.log-tip-box ul>li>a:active{  color: #ffffff;}/*快捷输入 /e*/";
         container.insertBefore(style, container.firstElementChild);
       },
       // 绑定事件
@@ -172,6 +186,7 @@
           this.togglePannal(); // 隐藏或显示控制台
           this.detailClose(); // 关闭详情面板
           this.tryItOut(); // 输出js功能
+          this.tryItOutTip(); // 输出提示
       },
       // 表格开始字符串
       tableBegin: function(keyName, valName, keyWidth, valWidth) {
@@ -289,9 +304,10 @@
           if (data.log instanceof Error) { // 捕获错误
               el.innerHTML = data.log.name + ' : ' + data.log.message;
           } else { // 是否对象
-              el.innerHTML = typeof data.log == 'object' ?
-                  '<pre><code>' + JSON.stringify(data.log, false, 2) + '</code></pre>' :
-                  '<pre><code>' + data.log + '</code></pre>';
+              if(testType(data.log, 'Array') || testType(data.log, 'Object')){
+                  data.log = JSON.stringify(data.log, false, 2);
+              }
+              el.innerHTML = '<pre><code>' + data.log + '</code></pre>';
           }
           el.className = className;
           $('#log-console-pan').appendChild(el);
@@ -475,7 +491,7 @@
                         }
                         str += '<tr><td>' + model + '</tb><td>' + t + '</td></tr>';
                     })
-                    str += '<tr id="log-prop-detail"><td><strong>show all of style...</strong></tb><td>...</td></tr>';
+                    str += '<tr id="log-prop-detail"><td><strong>show all of prop...</strong></tb><td>...</td></tr>';
                     break;
                 case 'style': // 获取样式
                     var style = getComputedStyle(curEle);
@@ -519,7 +535,7 @@
             on($('#log-container #log-prop-detail'), 'touchend', function() {
               var str = that.tableBegin('prop', 'value', 40, 60);
               for (var prop in curEle) { // 仅展示字符串和数字类型的属性
-                  if(prop.toUpperCase() == prop)continue; // 不显示系统常量 TODO:私有属性问题
+                  if(prop.toUpperCase() == prop)continue; // 不显示系统常量 TODO:私有属性问题：只有自定义属性属于私有
                   var val = curEle[prop]
                   if (testType(val,'String')) {
                       if(val.length>300){ // 限制300,防止过长
@@ -785,6 +801,57 @@
                   e.target.value = '';
               }
           })
+      },
+      // 输入提示
+      tryItOutTip: function() {
+        var that = this;
+        var centerBox = $('.log-container .log-tip-box>ul');
+        var tips = $('.log-container .log-tip-box>ul>li');
+
+        // 计算提示盒子栏长度元素opacity为0时元素宽度是auto
+        var total = [].reduce.call(tips, function(cur, next) {
+            return cur + parseFloat(getComputedStyle(next).width) + 21;
+        }, 1);
+        centerBox.style.width = total + 'px';
+
+        var tryItOut = $('#log-try-input');
+        var tipBox = $('#log-container .log-tip-box');
+        var eventPar = tryItOut.parentNode;
+        var flag = false;
+        var tipMap = {
+            'log':'console.log()',
+            '{}':'{}',
+            '[]':'[]',
+            '()':'()',
+            ';':';',
+            '$':'document.querySelectorAll()',
+            ',':',',
+            'var':'var ',
+            'if':'if( ){ }else{ }',
+            'for':'for(var i=0; i<arr.length; i++){ }',
+        };
+
+        on(tryItOut, 'focus', function(){
+            tipBox.classList.remove('height-0');
+        })
+        on(tryItOut, 'blur', function(){
+            tipBox.classList.add('height-0')
+        })
+
+        on(eventPar, 'touchend', function(e){
+            var key = '';
+            if(e.target.tagName == 'LI'){
+                key = e.target.firstElementChild.innerHTML;
+            }else if(e.target.tagName == 'A'){
+                key = e.target.innerHTML;
+            }else{
+                return
+            }
+            tryItOut.value += tipMap[key];
+            setTimeout(function(){//事件顺序：先触发结束再触发失去焦点；这里是防止选择提示后，输入框失去焦点
+                tryItOut.focus();
+            })
+        })
       }
   }
   try{
