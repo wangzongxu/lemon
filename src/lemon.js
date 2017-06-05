@@ -117,6 +117,7 @@
                     <li><a href="javascript:;">()</a></li>\
                     <li><a href="javascript:;">;</a></li>\
                     <li><a href="javascript:;">,</a></li>\
+                    <li><a href="javascript:;">""</a></li>\
                     <li><a href="javascript:;">$</a></li>\
                     <li><a href="javascript:;">var</a></li>\
                     <li><a href="javascript:;">if</a></li>\
@@ -819,16 +820,50 @@
         var eventPar = tryItOut.parentNode;
         var flag = false;
         var tipMap = {
-            'log':'console.log()',
-            '{}':'{}',
-            '[]':'[]',
-            '()':'()',
-            ';':';',
-            '$':'document.querySelectorAll()',
-            ',':',',
-            'var':'var ',
-            'if':'if( ){ }else{ }',
-            'for':'for(var i=0; i<arr.length; i++){ }',
+            'log':{
+                val: 'console.log()',
+                pos: 12
+            },
+            '{}':{
+                val: '{}',
+                pos: 1
+            },
+            '[]':{
+                val: '[]',
+                pos: 1
+            },
+            '()':{
+                val: '()',
+                pos: 1
+            },
+            ';':{
+                val: ';',
+                pos: null
+            },
+            '$':{
+                val: 'document.querySelectorAll("")',
+                pos: 27
+            },
+            ',':{
+                val: ',',
+                pos: null
+            },
+            '""':{
+                val: '""',
+                pos: 1
+            },
+            'var':{
+                val: 'var ',
+                pos: null
+            },
+            'if':{
+                val: 'if(){}else{}',
+                pos: 3
+            },
+            'for':{
+                val: 'for(var i=0; i<arr.length; i++){}',
+                pos: 15
+            },
         };
 
         on(tryItOut, 'focus', function(){
@@ -847,10 +882,16 @@
             }else{
                 return
             }
-            tryItOut.value += tipMap[key];
+            var selectionStart = tryItOut.selectionStart;
+            var front = tryItOut.value.substring(0, selectionStart);
+            var end = tryItOut.value.substring(selectionStart);
+            tryItOut.value = front + tipMap[key].val + end;
+
+            var pos = tipMap[key].pos || tipMap[key].val.length; // 控制焦点位置 
             setTimeout(function(){//事件顺序：先触发结束再触发失去焦点；这里是防止选择提示后，输入框失去焦点
                 tryItOut.focus();
-            })
+                tryItOut.setSelectionRange(pos + selectionStart, pos + selectionStart);
+            },15)
         })
       }
   }
