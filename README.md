@@ -23,8 +23,8 @@
 
 ### 通过npm安装
 
-```html
-npm install lemon_mobile
+```bash
+npm install lemon_mobile --save-dev
 ```
 ### 使用 
 
@@ -33,4 +33,10 @@ npm install lemon_mobile
 
 ```html
 <script src="lemon.min.js"></script>
+```
+
+- 如果使用webpack，也要引用在其他模块之前
+```js
+require('lemon_mobile')
+// 其他模块...
 ```
