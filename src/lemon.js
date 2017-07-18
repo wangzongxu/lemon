@@ -72,7 +72,6 @@
   Lemon.prototype = {
       init: function() {
           this.appendDom();
-          this.appendStyle();
           this.bindEvent()
       },
       // 插入dom
@@ -163,14 +162,6 @@
           </div>\
         </div>';
         $('body').innerHTML += dom;
-      },
-      // 插入样式
-      appendStyle: function() {
-        var container = $('#log-container');
-        var style = document.createElement('style');
-        style.setAttribute('scoped',true);
-        style.textContent = "css will be injected";
-        container.insertBefore(style, container.firstElementChild);
       },
       // 绑定事件
       bindEvent: function() {

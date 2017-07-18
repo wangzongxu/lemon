@@ -32,5 +32,5 @@ npm install lemon_mobile
 **该js必须引用在其他脚本之前**
 
 ```html
-<script src="lemon.js"></script>
+<script src="lemon.min.js"></script>
 ```
